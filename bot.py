@@ -66,12 +66,15 @@ class MyClient(discord.Client):
             
         
     async def check_achievements(self, channel_num: int):
-        channel = self.get_channel(channel_num)  # channel ID goes here
+        channel = self.get_channel(int(channel_num))  # channel ID goes here
         list_to_send = self.TO.get_cc_current_achievements()
         logger.info(f"Finished check of achievements, found: {len(list_to_send)} items")
         self.last_check = datetime.now()
         for msg in list_to_send:
-            await channel.send(msg)
+            if msg and channel:
+                await channel.send(msg)
+            else:
+                logger.error(f"Bot fails to find channel: {channel} or message: {msg}")
 
     async def on_message(self, message):
 
