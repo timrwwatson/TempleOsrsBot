@@ -13,7 +13,7 @@ class Achievement():
         self.date = entry["Date"]
         self.skill = entry["Skill"]
         self.type = entry["Type"]
-        self.xp = entry["Xp"]
+        self.xp = f'{entry["Xp"]:,}'
 
     def __eq__(self, other):
         return self.username == other.username and self.date == other.date and self.skill == other.skill and self.type == other.type and self.xp == other.xp
@@ -51,12 +51,17 @@ class TempleOsrs():
 
             resp = resp_test
             items = self.__parse_achievements(resp)
-            print(self.__compare_new_current_achievements(items))
+            items = self.__compare_new_current_achievements(items)
+            for item in items:
+                print(item)
             print("\n\n\n\n")
             resp = resp_test2
             print(resp)
             items = self.__parse_achievements(resp)
-            print(self.__compare_new_current_achievements(items))
+            items = self.__compare_new_current_achievements(items)
+            for item in items:
+                print(item)
+
         
     def __parse_achievements(self, response: str) -> list:
         # first convert from binary
@@ -92,7 +97,7 @@ class TempleOsrs():
         else:
             self.__write_time_file(new_current[0].date)
             for achiev in new_current:
-                if achiev not in self.__last_current_achievements:
+                if achiev not in self.__last_current_achievements and achiev.date > time:
                     new_list.append(achiev)
                     new_current_list.append(achiev)
                 elif len(new_list) < 20:

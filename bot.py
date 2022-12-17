@@ -1,18 +1,21 @@
-from discord.ext import tasks, commands
+#This example requires the 'members' and 'message_content' privileged intents to function.
 
 import discord
-import asyncio
+from discord.ext import commands
 
+import asyncio
 from datetime import datetime
 import logging
 import logging.handlers
 
-from temple_osrs import TempleOsrs, Achievement
+from temple_osrs import TempleOsrs
 
-description = '''Iamxerxes helper bot that will check templeosrs for the CC's achievements periodically!'''
-
-intents = discord.Intents.default()
-intents.message_content = True
+version_num = 0.3
+version_date = "22/12/17"
+changelog="""```- Fixed restart of bot so it checks time and memory if a message has already been printed to prevent spam (SORRY!)
+- re-wrote bot to use commands.bot instead of client - made it easier to add commands and help functionality.
+- Added new commands to check when the API was last queried and did some formatting on longer numbers for Synizta
+- **TODO**: Get CC Monthly top player```"""
 
 def read_conf() -> dict:
     rtn_dict = {}
@@ -39,57 +42,78 @@ logger_gen.addHandler(handler)
 
 logger = logging.getLogger('discord')
 
-class MyClient(discord.Client):
-    def __init__(self, channel_id:int, time_to_check:int, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.channel_id = channel_id
-        self.time_to_check = int(time_to_check)
-        self.TO = TempleOsrs()
-        self.last_check = self.last_check = datetime.now()
-        logger.info(f"Bot constructed with channelid: {self.channel_id} and time to check: {self.time_to_check} seconds")
+description = '''Iamxerxes helper bot that will check templeosrs for the CC's achievements periodically!'''
 
-    async def setup_hook(self) -> None:
-        # start the task to run in the background
-        self.bg_task = self.loop.create_task(self.my_background_task())
-       
-    async def on_ready(self):
-        print(f'Logged in as {self.user} (ID: {self.user.id})')
-        print('------')
+intents = discord.Intents.default()
+intents.message_content = True
+help_command = commands.DefaultHelpCommand(no_category = 'Commands')
 
+bot = commands.Bot(command_prefix='!', description=description, intents=intents, help_command=help_command)
+TO = TempleOsrs()
+last_check_time = datetime.now()
+list_to_send = []
+
+
+@bot.event
+async def on_ready():
+    print(f'Logged in as {bot.user} (ID: {bot.user.id})')
+    print('------')
+
+
+@bot.command(help="Check for new achievements in the CC TempleOsrs Page")
+async def check(ctx):
+    now = datetime.now()
+    diff = now - last_check_time
+    if (diff.total_seconds() / 60) < 10:
+        logger.warning(f"User: {ctx.message.author} tried to check the API too quickly. ({(diff.total_seconds() / 60)} minutes since last check)")
+        await ctx.message.author.send("The bot checked the API less than 10 minutes ago! We don't want to over work the API :(")
+    else:
+        await check_achievements(ctx.channel.id, command=True)
+
+@bot.command(help="Get information of when the bot last queried TempleOsrs for achievements.")
+async def last_check(ctx):
+    now = datetime.now()
+    diff = (now - last_check_time).total_seconds() / 60
+    diff = float(diff)
+    await ctx.send(f"The bot last quered the API at: {last_check_time.strftime('%y/%m/%d %X')} that was {diff:.2f} minutes ago. It recieved {len(list_to_send)} new items.")
     
-    async def my_background_task(self):
-        await self.wait_until_ready()
-        while not self.is_closed():
-            logger.info("Running background check")
-            await self.check_achievements(self.channel_id)
-            await asyncio.sleep(self.time_to_check)
-            
+@bot.command(help="Get bot version and changelog details")
+async def version(ctx):
+    await ctx.send(f"The bot was updated on {version_date} with version number **{version_num}** the changelog notes are: {changelog}")
+
+@bot.event
+async def setup_hook() -> None:
+    # start the task to run in the background
+    bot.bg_task = bot.loop.create_task(bot.my_background_task())
+    #global list_to_send
+    #list_to_send = ["trial", "by", "fire"]
+    #pass
+       
+
+@bot.event
+async def my_background_task():
+    await bot.wait_until_ready()
+    while not bot.is_closed():
+        logger.info("Running background check")
+        await check_achievements(conf["channelid"])
+        await asyncio.sleep(conf["time"])
         
-    async def check_achievements(self, channel_num: int):
-        channel = self.get_channel(int(channel_num))  # channel ID goes here
-        list_to_send = self.TO.get_cc_current_achievements()
-        logger.info(f"Finished check of achievements, found: {len(list_to_send)} items")
-        self.last_check = datetime.now()
+    
+async def check_achievements(channel_num: int, command: bool=False):
+    global last_check_time
+    global list_to_send
+    channel = bot.get_channel(int(channel_num))  # channel ID goes here
+    list_to_send = TO.get_cc_current_achievements()
+    logger.info(f"Finished check of achievements, found: {len(list_to_send)} items")
+    last_check_time = datetime.now()
+    if len(list_to_send) == 0 and command:
+        await channel.send(f"No new achievements found!")
+    else:
         for msg in list_to_send:
             if msg and channel:
                 await channel.send(msg)
             else:
                 logger.error(f"Bot fails to find channel: {channel} or message: {msg}")
-
-    async def on_message(self, message):
-
-        if message.content.startswith("!check"):
-            now = datetime.now()
-            diff = now - self.last_check
-            if (diff.total_seconds() / 60) < 10:
-                logger.warning(f"User: {message.author} tried to check the API too quickly. ({(diff.total_seconds() / 60)} minutes since last check)")
-                await message.author.send("The bot checked the API less than 10 minutes ago! We don't want to over work the API :(")
-            else:
-                await self.check_achievements(self.channel_id)
-
-
+        
 conf = read_conf()
-
-client = MyClient(conf["channelid"], conf["time"], intents=intents, description=description)
-client.run(conf["token"])
-
+bot.run(conf["token"])
