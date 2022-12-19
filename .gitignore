@@ -1,5 +1,5 @@
-venv/*
+src/venv/*
 conf
 *.pyc
 time.output
-logs/*
+src/logs/*

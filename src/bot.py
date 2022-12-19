@@ -96,7 +96,7 @@ async def my_background_task():
     while not bot.is_closed():
         logger.info("Running background check")
         await check_achievements(conf["channelid"])
-        await asyncio.sleep(conf["time"])
+        await asyncio.sleep(int(conf["time"]))
         
     
 async def check_achievements(channel_num: int, command: bool=False):
