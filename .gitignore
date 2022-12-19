@@ -2,4 +2,4 @@ venv/*
 conf
 *.pyc
 time.output
-src/logs/*
+container/src/logs/*
