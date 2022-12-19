@@ -10,16 +10,15 @@ import logging.handlers
 
 from temple_osrs import TempleOsrs
 
-version_num = 0.3
-version_date = "22/12/17"
-changelog="""```- Fixed restart of bot so it checks time and memory if a message has already been printed to prevent spam (SORRY!)
-- re-wrote bot to use commands.bot instead of client - made it easier to add commands and help functionality.
-- Added new commands to check when the API was last queried and did some formatting on longer numbers for Synizta
+version_num = 0.4
+version_date = "22/12/19"
+changelog="""```- Container-ised bot (docker) to run on my PI :)
+- Fixed restart of bot so it checks time and memory if a message has already been printed to prevent spam (SORRY!)
 - **TODO**: Get CC Monthly top player```"""
 
 def read_conf() -> dict:
     rtn_dict = {}
-    with open("conf", "r") as conf:
+    with open("conf/conf", "r") as conf:
         for lines in conf:
             lines.strip()
             split = lines.split("=")

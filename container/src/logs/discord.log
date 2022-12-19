@@ -1,0 +1,228 @@
+[2022-12-17 11:21:04] [WARNING ] discord.client: PyNaCl is not installed, voice will NOT be supported
+[2022-12-17 11:21:04] [INFO    ] discord.client: logging in using static token
+[2022-12-17 11:21:04] [INFO    ] discord.gateway: Shard ID None has connected to Gateway (Session ID: de3b3480e97cd40ce1d7bd48817caaee).
+[2022-12-17 11:21:06] [INFO    ] discord: Running background check
+[2022-12-17 11:21:07] [INFO    ] discord: Finished check of achievements, found: 25 items
+[2022-12-17 11:26:40] [ERROR   ] asyncio: Task exception was never retrieved
+future: <Task finished name='Task-5' coro=<my_background_task() done, defined at c:\Users\timrw\Documents\XerxTempleOsrs\bot.py:92> exception=TypeError("'<=' not supported between instances of 'str' and 'int'")>
+Traceback (most recent call last):
+  File "c:\Users\timrw\Documents\XerxTempleOsrs\bot.py", line 98, in my_background_task
+    await asyncio.sleep(conf["time"])
+  File "C:\Users\timrw\AppData\Local\Programs\Python\Python311\Lib\asyncio\tasks.py", line 629, in sleep
+    if delay <= 0:
+       ^^^^^^^^^^
+TypeError: '<=' not supported between instances of 'str' and 'int'
+[2022-12-17 11:28:04] [WARNING ] discord.client: PyNaCl is not installed, voice will NOT be supported
+[2022-12-17 11:28:04] [INFO    ] discord.client: logging in using static token
+[2022-12-17 11:28:05] [INFO    ] discord.gateway: Shard ID None has connected to Gateway (Session ID: df55f59c94ab631f62d1bcdd83c97351).
+[2022-12-17 11:28:07] [INFO    ] discord: Running background check
+[2022-12-17 11:28:07] [INFO    ] discord: Finished check of achievements, found: 25 items
+[2022-12-17 11:29:15] [ERROR   ] asyncio: Task exception was never retrieved
+future: <Task finished name='Task-5' coro=<my_background_task() done, defined at c:\Users\timrw\Documents\XerxTempleOsrs\bot.py:92> exception=TypeError("'<=' not supported between instances of 'str' and 'int'")>
+Traceback (most recent call last):
+  File "c:\Users\timrw\Documents\XerxTempleOsrs\bot.py", line 98, in my_background_task
+    await asyncio.sleep(conf["time"])
+  File "C:\Users\timrw\AppData\Local\Programs\Python\Python311\Lib\asyncio\tasks.py", line 629, in sleep
+    if delay <= 0:
+       ^^^^^^^^^^
+TypeError: '<=' not supported between instances of 'str' and 'int'
+[2022-12-17 11:29:28] [WARNING ] discord.client: PyNaCl is not installed, voice will NOT be supported
+[2022-12-17 11:29:28] [INFO    ] discord.client: logging in using static token
+[2022-12-17 11:29:28] [INFO    ] discord.gateway: Shard ID None has connected to Gateway (Session ID: 76def2caca1ecfc44433611996454421).
+[2022-12-17 11:29:30] [INFO    ] discord: Running background check
+[2022-12-17 11:29:31] [INFO    ] discord: Finished check of achievements, found: 1 items
+[2022-12-17 11:29:52] [ERROR   ] asyncio: Task exception was never retrieved
+future: <Task finished name='Task-5' coro=<my_background_task() done, defined at c:\Users\timrw\Documents\XerxTempleOsrs\bot.py:92> exception=TypeError("'<=' not supported between instances of 'str' and 'int'")>
+Traceback (most recent call last):
+  File "c:\Users\timrw\Documents\XerxTempleOsrs\bot.py", line 98, in my_background_task
+    await asyncio.sleep(conf["time"])
+  File "C:\Users\timrw\AppData\Local\Programs\Python\Python311\Lib\asyncio\tasks.py", line 629, in sleep
+    if delay <= 0:
+       ^^^^^^^^^^
+TypeError: '<=' not supported between instances of 'str' and 'int'
+[2022-12-17 11:31:01] [WARNING ] discord.client: PyNaCl is not installed, voice will NOT be supported
+[2022-12-17 11:31:01] [INFO    ] discord.client: logging in using static token
+[2022-12-17 11:31:02] [INFO    ] discord.gateway: Shard ID None has connected to Gateway (Session ID: 4b7deaa062cd49d8360ccfcacaa6a229).
+[2022-12-17 11:31:04] [INFO    ] discord: Running background check
+[2022-12-17 11:31:04] [INFO    ] discord: Finished check of achievements, found: 0 items
+[2022-12-17 12:12:15] [WARNING ] discord.gateway: Shard ID None has stopped responding to the gateway. Closing and restarting.
+[2022-12-17 12:12:16] [INFO    ] discord.gateway: Shard ID None session has been invalidated.
+[2022-12-17 12:12:21] [INFO    ] discord.gateway: Shard ID None has connected to Gateway (Session ID: 20f358147925e142134a3444c349ccdc).
+[2022-12-17 13:43:16] [INFO    ] discord.gateway: Shard ID None has successfully RESUMED session 20f358147925e142134a3444c349ccdc.
+[2022-12-17 15:05:43] [INFO    ] discord.gateway: Shard ID None has successfully RESUMED session 20f358147925e142134a3444c349ccdc.
+[2022-12-17 15:22:07] [INFO    ] discord.gateway: Shard ID None has successfully RESUMED session 20f358147925e142134a3444c349ccdc.
+[2022-12-17 15:49:00] [INFO    ] discord.gateway: Shard ID None has successfully RESUMED session 20f358147925e142134a3444c349ccdc.
+[2022-12-17 18:55:28] [ERROR   ] asyncio: Task exception was never retrieved
+future: <Task finished name='Task-5' coro=<my_background_task() done, defined at c:\Users\timrw\Documents\XerxTempleOsrs\bot.py:93> exception=TypeError("'<=' not supported between instances of 'str' and 'int'")>
+Traceback (most recent call last):
+  File "c:\Users\timrw\Documents\XerxTempleOsrs\bot.py", line 99, in my_background_task
+    await asyncio.sleep(int(conf["time"]))
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\timrw\AppData\Local\Programs\Python\Python311\Lib\asyncio\tasks.py", line 629, in sleep
+    if delay <= 0:
+       ^^^^^^^^^^
+TypeError: '<=' not supported between instances of 'str' and 'int'
+[2022-12-17 18:55:33] [WARNING ] discord.client: PyNaCl is not installed, voice will NOT be supported
+[2022-12-17 18:55:33] [INFO    ] discord.client: logging in using static token
+[2022-12-17 18:55:34] [INFO    ] discord.gateway: Shard ID None has connected to Gateway (Session ID: d3a520aac9c6fd59a7d0f47f8670cec9).
+[2022-12-17 18:55:36] [INFO    ] discord: Running background check
+[2022-12-17 18:55:37] [INFO    ] discord: Finished check of achievements, found: 2 items
+[2022-12-17 19:25:37] [INFO    ] discord: Running background check
+[2022-12-17 19:25:38] [INFO    ] discord: Finished check of achievements, found: 0 items
+[2022-12-17 19:55:38] [INFO    ] discord: Running background check
+[2022-12-17 19:55:38] [INFO    ] discord: Finished check of achievements, found: 0 items
+[2022-12-17 20:25:38] [INFO    ] discord: Running background check
+[2022-12-17 20:25:39] [INFO    ] discord: Finished check of achievements, found: 0 items
+[2022-12-17 20:55:39] [INFO    ] discord: Running background check
+[2022-12-17 20:55:39] [INFO    ] discord: Finished check of achievements, found: 0 items
+[2022-12-17 21:17:46] [INFO    ] discord.gateway: Shard ID None has successfully RESUMED session d3a520aac9c6fd59a7d0f47f8670cec9.
+[2022-12-17 21:25:39] [INFO    ] discord: Running background check
+[2022-12-17 21:25:40] [INFO    ] discord: Finished check of achievements, found: 0 items
+[2022-12-17 21:55:40] [INFO    ] discord: Running background check
+[2022-12-17 21:55:40] [INFO    ] discord: Finished check of achievements, found: 0 items
+[2022-12-17 22:04:12] [INFO    ] discord.gateway: Shard ID None has successfully RESUMED session d3a520aac9c6fd59a7d0f47f8670cec9.
+[2022-12-17 22:25:40] [INFO    ] discord: Running background check
+[2022-12-17 22:25:41] [INFO    ] discord: Finished check of achievements, found: 0 items
+[2022-12-17 22:55:41] [INFO    ] discord: Running background check
+[2022-12-17 22:55:41] [INFO    ] discord: Finished check of achievements, found: 0 items
+[2022-12-17 23:25:41] [INFO    ] discord: Running background check
+[2022-12-17 23:25:41] [INFO    ] discord: Finished check of achievements, found: 0 items
+[2022-12-17 23:55:41] [INFO    ] discord: Running background check
+[2022-12-17 23:55:42] [INFO    ] discord: Finished check of achievements, found: 0 items
+[2022-12-18 00:04:49] [INFO    ] discord.gateway: Shard ID None has successfully RESUMED session d3a520aac9c6fd59a7d0f47f8670cec9.
+[2022-12-18 00:20:10] [INFO    ] discord.gateway: Shard ID None has successfully RESUMED session d3a520aac9c6fd59a7d0f47f8670cec9.
+[2022-12-18 00:25:42] [INFO    ] discord: Running background check
+[2022-12-18 00:25:42] [INFO    ] discord: Finished check of achievements, found: 0 items
+[2022-12-18 00:55:42] [INFO    ] discord: Running background check
+[2022-12-18 00:55:43] [INFO    ] discord: Finished check of achievements, found: 0 items
+[2022-12-18 01:25:43] [INFO    ] discord: Running background check
+[2022-12-18 01:25:43] [INFO    ] discord: Finished check of achievements, found: 0 items
+[2022-12-18 01:55:43] [INFO    ] discord: Running background check
+[2022-12-18 01:55:44] [INFO    ] discord: Finished check of achievements, found: 0 items
+[2022-12-18 02:25:44] [INFO    ] discord: Running background check
+[2022-12-18 02:25:44] [INFO    ] discord: Finished check of achievements, found: 0 items
+[2022-12-18 02:55:44] [INFO    ] discord: Running background check
+[2022-12-18 02:55:44] [INFO    ] discord: Finished check of achievements, found: 0 items
+[2022-12-18 03:25:44] [INFO    ] discord: Running background check
+[2022-12-18 03:25:45] [INFO    ] discord: Finished check of achievements, found: 0 items
+[2022-12-18 03:31:26] [INFO    ] discord.gateway: Shard ID None has successfully RESUMED session d3a520aac9c6fd59a7d0f47f8670cec9.
+[2022-12-18 03:55:45] [INFO    ] discord: Running background check
+[2022-12-18 03:55:45] [INFO    ] discord: Finished check of achievements, found: 0 items
+[2022-12-18 04:25:45] [INFO    ] discord: Running background check
+[2022-12-18 04:25:46] [INFO    ] discord: Finished check of achievements, found: 0 items
+[2022-12-18 04:39:13] [INFO    ] discord.gateway: Shard ID None has successfully RESUMED session d3a520aac9c6fd59a7d0f47f8670cec9.
+[2022-12-18 04:55:46] [INFO    ] discord: Running background check
+[2022-12-18 04:55:46] [INFO    ] discord: Finished check of achievements, found: 0 items
+[2022-12-18 05:25:46] [INFO    ] discord: Running background check
+[2022-12-18 05:25:46] [INFO    ] discord: Finished check of achievements, found: 0 items
+[2022-12-18 05:55:46] [INFO    ] discord: Running background check
+[2022-12-18 05:55:47] [INFO    ] discord: Finished check of achievements, found: 1 items
+[2022-12-18 06:25:47] [INFO    ] discord: Running background check
+[2022-12-18 06:25:48] [INFO    ] discord: Finished check of achievements, found: 1 items
+[2022-12-18 06:55:48] [INFO    ] discord: Running background check
+[2022-12-18 06:55:48] [INFO    ] discord: Finished check of achievements, found: 0 items
+[2022-12-18 07:25:48] [INFO    ] discord: Running background check
+[2022-12-18 07:25:49] [INFO    ] discord: Finished check of achievements, found: 0 items
+[2022-12-18 07:40:16] [INFO    ] discord.gateway: Shard ID None has successfully RESUMED session d3a520aac9c6fd59a7d0f47f8670cec9.
+[2022-12-18 07:55:49] [INFO    ] discord: Running background check
+[2022-12-18 07:55:49] [INFO    ] discord: Finished check of achievements, found: 0 items
+[2022-12-18 08:25:49] [INFO    ] discord: Running background check
+[2022-12-18 08:25:50] [INFO    ] discord: Finished check of achievements, found: 0 items
+[2022-12-18 08:55:50] [INFO    ] discord: Running background check
+[2022-12-18 08:55:50] [INFO    ] discord: Finished check of achievements, found: 0 items
+[2022-12-18 09:25:50] [INFO    ] discord: Running background check
+[2022-12-18 09:25:50] [INFO    ] discord: Finished check of achievements, found: 0 items
+[2022-12-18 09:55:50] [INFO    ] discord: Running background check
+[2022-12-18 09:55:51] [INFO    ] discord: Finished check of achievements, found: 1 items
+[2022-12-18 10:25:51] [INFO    ] discord: Running background check
+[2022-12-18 10:25:52] [INFO    ] discord: Finished check of achievements, found: 0 items
+[2022-12-18 10:55:52] [INFO    ] discord: Running background check
+[2022-12-18 10:55:53] [INFO    ] discord: Finished check of achievements, found: 0 items
+[2022-12-18 11:01:28] [INFO    ] discord.gateway: Shard ID None has successfully RESUMED session d3a520aac9c6fd59a7d0f47f8670cec9.
+[2022-12-18 11:25:53] [INFO    ] discord: Running background check
+[2022-12-18 11:25:53] [INFO    ] discord: Finished check of achievements, found: 0 items
+[2022-12-18 11:55:53] [INFO    ] discord: Running background check
+[2022-12-18 11:55:54] [INFO    ] discord: Finished check of achievements, found: 0 items
+[2022-12-18 12:25:54] [INFO    ] discord: Running background check
+[2022-12-18 12:25:54] [INFO    ] discord: Finished check of achievements, found: 0 items
+[2022-12-18 12:55:54] [INFO    ] discord: Running background check
+[2022-12-18 12:55:54] [INFO    ] discord: Finished check of achievements, found: 0 items
+[2022-12-18 13:25:54] [INFO    ] discord: Running background check
+[2022-12-18 13:25:55] [INFO    ] discord: Finished check of achievements, found: 0 items
+[2022-12-18 13:55:55] [INFO    ] discord: Running background check
+[2022-12-18 13:55:55] [INFO    ] discord: Finished check of achievements, found: 0 items
+[2022-12-18 14:17:55] [INFO    ] discord.gateway: Shard ID None has successfully RESUMED session d3a520aac9c6fd59a7d0f47f8670cec9.
+[2022-12-18 14:25:55] [INFO    ] discord: Running background check
+[2022-12-18 14:25:56] [INFO    ] discord: Finished check of achievements, found: 0 items
+[2022-12-18 14:55:56] [INFO    ] discord: Running background check
+[2022-12-18 14:55:56] [INFO    ] discord: Finished check of achievements, found: 0 items
+[2022-12-18 15:25:56] [INFO    ] discord: Running background check
+[2022-12-18 15:25:57] [INFO    ] discord: Finished check of achievements, found: 0 items
+[2022-12-18 15:55:57] [INFO    ] discord: Running background check
+[2022-12-18 15:55:57] [INFO    ] discord: Finished check of achievements, found: 0 items
+[2022-12-18 16:25:57] [INFO    ] discord: Running background check
+[2022-12-18 16:25:57] [INFO    ] discord: Finished check of achievements, found: 0 items
+[2022-12-18 16:55:57] [INFO    ] discord: Running background check
+[2022-12-18 16:55:58] [INFO    ] discord: Finished check of achievements, found: 1 items
+[2022-12-18 17:25:58] [INFO    ] discord: Running background check
+[2022-12-18 17:25:59] [INFO    ] discord: Finished check of achievements, found: 0 items
+[2022-12-18 17:55:59] [INFO    ] discord: Running background check
+[2022-12-18 17:55:59] [INFO    ] discord: Finished check of achievements, found: 0 items
+[2022-12-18 18:16:40] [INFO    ] discord.gateway: Shard ID None has successfully RESUMED session d3a520aac9c6fd59a7d0f47f8670cec9.
+[2022-12-18 18:25:59] [INFO    ] discord: Running background check
+[2022-12-18 18:25:59] [INFO    ] discord: Finished check of achievements, found: 0 items
+[2022-12-18 18:55:59] [INFO    ] discord: Running background check
+[2022-12-18 18:56:00] [INFO    ] discord: Finished check of achievements, found: 0 items
+[2022-12-18 19:26:00] [INFO    ] discord: Running background check
+[2022-12-18 19:26:00] [INFO    ] discord: Finished check of achievements, found: 0 items
+[2022-12-18 19:56:00] [INFO    ] discord: Running background check
+[2022-12-18 19:56:01] [INFO    ] discord: Finished check of achievements, found: 0 items
+[2022-12-18 20:26:01] [INFO    ] discord: Running background check
+[2022-12-18 20:26:01] [INFO    ] discord: Finished check of achievements, found: 0 items
+[2022-12-18 20:56:01] [INFO    ] discord: Running background check
+[2022-12-18 20:56:02] [INFO    ] discord: Finished check of achievements, found: 0 items
+[2022-12-18 21:18:41] [INFO    ] discord.gateway: Shard ID None has successfully RESUMED session d3a520aac9c6fd59a7d0f47f8670cec9.
+[2022-12-18 21:26:02] [INFO    ] discord: Running background check
+[2022-12-18 21:26:02] [INFO    ] discord: Finished check of achievements, found: 1 items
+[2022-12-18 21:56:02] [INFO    ] discord: Running background check
+[2022-12-18 21:56:02] [INFO    ] discord: Finished check of achievements, found: 3 items
+[2022-12-18 22:26:03] [INFO    ] discord: Running background check
+[2022-12-18 22:26:04] [INFO    ] discord: Finished check of achievements, found: 0 items
+[2022-12-18 22:56:04] [INFO    ] discord: Running background check
+[2022-12-18 22:56:04] [INFO    ] discord: Finished check of achievements, found: 0 items
+[2022-12-18 23:26:04] [INFO    ] discord: Running background check
+[2022-12-18 23:26:05] [INFO    ] discord: Finished check of achievements, found: 1 items
+[2022-12-18 23:56:05] [INFO    ] discord: Running background check
+[2022-12-18 23:56:05] [INFO    ] discord: Finished check of achievements, found: 1 items
+[2022-12-19 00:26:06] [INFO    ] discord: Running background check
+[2022-12-19 00:26:06] [INFO    ] discord: Finished check of achievements, found: 0 items
+[2022-12-19 00:34:45] [INFO    ] discord.gateway: Shard ID None has successfully RESUMED session d3a520aac9c6fd59a7d0f47f8670cec9.
+[2022-12-19 00:56:06] [INFO    ] discord: Running background check
+[2022-12-19 00:56:06] [INFO    ] discord: Finished check of achievements, found: 0 items
+[2022-12-19 01:20:05] [INFO    ] discord.gateway: Shard ID None has successfully RESUMED session d3a520aac9c6fd59a7d0f47f8670cec9.
+[2022-12-19 01:26:06] [INFO    ] discord: Running background check
+[2022-12-19 01:26:07] [INFO    ] discord: Finished check of achievements, found: 0 items
+[2022-12-19 01:56:07] [INFO    ] discord: Running background check
+[2022-12-19 01:56:07] [INFO    ] discord: Finished check of achievements, found: 0 items
+[2022-12-19 02:26:07] [INFO    ] discord: Running background check
+[2022-12-19 02:26:07] [INFO    ] discord: Finished check of achievements, found: 0 items
+[2022-12-19 02:56:08] [INFO    ] discord: Running background check
+[2022-12-19 02:56:08] [INFO    ] discord: Finished check of achievements, found: 0 items
+[2022-12-19 03:26:08] [INFO    ] discord: Running background check
+[2022-12-19 03:26:08] [INFO    ] discord: Finished check of achievements, found: 0 items
+[2022-12-19 03:37:42] [INFO    ] discord.gateway: Shard ID None has successfully RESUMED session d3a520aac9c6fd59a7d0f47f8670cec9.
+[2022-12-19 03:56:08] [INFO    ] discord: Running background check
+[2022-12-19 03:56:09] [INFO    ] discord: Finished check of achievements, found: 0 items
+[2022-12-19 04:26:09] [INFO    ] discord: Running background check
+[2022-12-19 04:26:09] [INFO    ] discord: Finished check of achievements, found: 0 items
+[2022-12-19 04:56:09] [INFO    ] discord: Running background check
+[2022-12-19 04:56:09] [INFO    ] discord: Finished check of achievements, found: 0 items
+[2022-12-19 05:26:10] [INFO    ] discord: Running background check
+[2022-12-19 05:26:10] [INFO    ] discord: Finished check of achievements, found: 1 items
+[2022-12-19 05:53:35] [INFO    ] discord.gateway: Shard ID None has successfully RESUMED session d3a520aac9c6fd59a7d0f47f8670cec9.
+[2022-12-19 05:56:10] [INFO    ] discord: Running background check
+[2022-12-19 05:56:11] [INFO    ] discord: Finished check of achievements, found: 0 items
+[2022-12-19 06:26:11] [INFO    ] discord: Running background check
+[2022-12-19 06:26:11] [INFO    ] discord: Finished check of achievements, found: 0 items
+[2022-12-19 06:56:11] [INFO    ] discord: Running background check
+[2022-12-19 06:56:12] [INFO    ] discord: Finished check of achievements, found: 0 items

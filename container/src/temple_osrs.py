@@ -1,6 +1,7 @@
 import requests
 import json
 import logging
+import os
 
 
 
@@ -75,14 +76,15 @@ class TempleOsrs():
         except Exception as e:
             self.logger.error(f"Api response can't be decoded with error: {e}")
 
-    def __read_time_file(self, time_file:str="time.output")->str:
+    def __read_time_file(self, time_file:str="conf/time.output")->str:
         time = ""
+        print(os.getcwd())
         with open(time_file, "r") as tf:
             time = tf.readline()
             time.strip()
         return time
     
-    def __write_time_file(self,time:str, time_file:str="time.output")->None:
+    def __write_time_file(self,time:str, time_file:str="conf/time.output")->None:
         with open(time_file, "w") as tf:
             tf.write(time)
 
