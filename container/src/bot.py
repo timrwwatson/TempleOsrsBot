@@ -1,5 +1,3 @@
-#This example requires the 'members' and 'message_content' privileged intents to function.
-
 import discord
 from discord.ext import commands
 
@@ -18,7 +16,7 @@ changelog="""```- Container-ised bot (docker) to run on my PI :)
 
 def read_conf() -> dict:
     rtn_dict = {}
-    with open("conf/conf", "r") as conf:
+    with open("src/conf/conf", "r") as conf:
         for lines in conf:
             lines.strip()
             split = lines.split("=")
@@ -29,7 +27,7 @@ logger_gen = logging.getLogger()
 logger_gen.setLevel(logging.INFO)
 
 handler = logging.handlers.RotatingFileHandler(
-    filename='logs/discord.log',
+    filename='src/logs/discord.log',
     encoding='utf-8',
     maxBytes=32 * 1024 * 1024,  # 32 MiB
     backupCount=5,  # Rotate through 5 files

@@ -1,9 +1,14 @@
-version: '3'
+version: '3.9'
 services:
   templeosrs:
-    build: .
+    network_mode: host
     volumes:
-      - /rohan/src/:.
+      - ./container/src:/templeosrs/src
+    build: 
+      context: .
+      network: host
     container_name: templeosrs
+    
+    
     
   
