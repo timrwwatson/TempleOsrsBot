@@ -28,7 +28,9 @@ class Achievement():
             rtn_str += f" has completed {self.xp} {self.skill[idx:]} clues!" 
         elif self.type == "Skill" and ("Ehp" in self.skill):
             rtn_str += f" has reached {self.xp} EHP" 
-        elif self.type == "Skill" and not ("Ehp" in self.skill):
+        elif self.type == "Skill" and ("Ehb" in self.skill):
+            rtn_str += f" has reached {self.xp} EHB" 
+        elif self.type == "Skill" and not ("Ehp" in self.skill or "Ehb" in self.skill):
             rtn_str += f" has reached {self.xp} xp in {self.skill}!" 
         return rtn_str
 

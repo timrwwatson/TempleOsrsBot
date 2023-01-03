@@ -8,10 +8,10 @@ import logging.handlers
 
 from temple_osrs import TempleOsrs
 
-version_num = 0.4
-version_date = "22/12/19"
-changelog="""```- Container-ised bot (docker) to run on my PI :)
-- Fixed restart of bot so it checks time and memory if a message has already been printed to prevent spam (SORRY!)
+version_num = 0.41
+version_date = "23/01/03"
+changelog="""```- Added EHB check
+- Container-ised bot (docker) to run on my PI :)
 - **TODO**: Get CC Monthly top player```"""
 
 def read_conf() -> dict:
