@@ -6,6 +6,6 @@ COPY /container/requirements.txt .
 
 RUN pip install -r requirements.txt
 
-COPY /container/src/ .
+COPY /container/ .
 
-CMD [ "python", "./bot.py"]
+CMD [ "python", "src/bot.py"]
