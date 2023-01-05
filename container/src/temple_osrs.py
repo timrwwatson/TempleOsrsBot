@@ -3,7 +3,7 @@ import json
 import logging
 import os
 import time
-
+import datetime
 
 FILE_LOCATION = "src/conf/time.output"
 resp_test = b'{"data":[{"Username":"Saltysyra","Date":"2022-12-16 09:29:12","Skill":"Smithing","Type":"Skill","Xp":5000000},{"Username":"Consumption","Date":"2022-12-16 08:49:25","Skill":"General Graardor","Type":"Pvm","Xp":300},{"Username":"Lukezz","Date":"2022-12-15 23:17:05","Skill":"Hitpoints","Type":"Skill","Xp":90000000},{"Username":"Cookiehcake","Date":"2022-12-15 22:59:40","Skill":"Dagannoth Rex","Type":"Pvm","Xp":1300},{"Username":"Cookiehcake","Date":"2022-12-15 22:59:40","Skill":"Dagannoth Supreme","Type":"Pvm","Xp":1300},{"Username":"Cookiehcake","Date":"2022-12-15 22:59:40","Skill":"KreeArra","Type":"Pvm","Xp":1000},{"Username":"Syraspecial","Date":"2022-12-15 22:33:08","Skill":"Alchemical Hydra","Type":"Pvm","Xp":100},{"Username":"Top V1","Date":"2022-12-15 20:53:37","Skill":"Dagannoth Rex","Type":"Pvm","Xp":1900},{"Username":"Top V1","Date":"2022-12-15 20:53:37","Skill":"Dagannoth Supreme","Type":"Pvm","Xp":1800},{"Username":"Cinderal","Date":"2022-12-15 19:13:43","Skill":"Zulrah","Type":"Pvm","Xp":100},{"Username":"Vlk1ng","Date":"2022-12-15 17:43:22","Skill":"King Black Dragon","Type":"Pvm","Xp":1300},{"Username":"Top V1","Date":"2022-12-15 17:41:29","Skill":"Alchemical Hydra","Type":"Pvm","Xp":1600},{"Username":"Consumption","Date":"2022-12-15 17:33:24","Skill":"General Graardor","Type":"Pvm","Xp":200},{"Username":"Lukezz","Date":"2022-12-15 13:23:33","Skill":"Nex","Type":"Pvm","Xp":900},{"Username":"Confusedgali","Date":"2022-12-15 10:00:49","Skill":"Ehp","Type":"Skill","Xp":300},{"Username":"Confusedgali","Date":"2022-12-15 10:00:49","Skill":"Clue_medium","Type":"Pvm","Xp":200},{"Username":"Confusedgali","Date":"2022-12-15 10:00:49","Skill":"Wintertodt","Type":"Pvm","Xp":100},{"Username":"Waldroni","Date":"2022-12-15 06:56:00","Skill":"Attack","Type":"Skill","Xp":5000000},{"Username":"Cinderal","Date":"2022-12-15 06:31:50","Skill":"Mining","Type":"Skill","Xp":15000000},{"Username":"Top V1","Date":"2022-12-15 00:31:23","Skill":"Dagannoth Supreme","Type":"Pvm","Xp":1700},{"Username":"Top V1","Date":"2022-12-15 00:31:23","Skill":"Thermonuclear Smoke Devil","Type":"Pvm","Xp":3400},{"Username":"Top V1","Date":"2022-12-15 00:31:23","Skill":"Ranged","Type":"Skill","Xp":45000000},{"Username":"Top V1","Date":"2022-12-15 00:31:23","Skill":"Dagannoth Prime","Type":"Pvm","Xp":1700},{"Username":"Top V1","Date":"2022-12-14 13:02:43","Skill":"KreeArra","Type":"Pvm","Xp":100},{"Username":"The Nevster","Date":"2022-12-14 12:40:09","Skill":"Strength","Type":"Skill","Xp":25000000}]}'
@@ -135,6 +135,7 @@ class TempleOsrs():
             resp = requests.get("https://templeosrs.com/api/groupmembers.php", params={'id':self.id})
             if resp.ok:
                 members = self.__parse_members(resp)
+                self.logger.info(f"Retrieved monthly group members list, len: {len(members)}")
                 time_now, unix_time_then = self.__read_time_file(FILE_LOCATION)
                 unix_time_now = int(time.time())
                 for member in members:
@@ -143,12 +144,13 @@ class TempleOsrs():
                     resp_new = requests.get("https://templeosrs.com/api/player_stats.php", params={'player':member, 'bosses':'1','date':unix_time_now})
                     new_player_resp_parsed = self.__parse_members(resp_new)
 
-                for i, metric_name in enumerate(metric):
-                    lists[i].append(self.__calc_player_difference(metric_name, old_player_resp_parsed, new_player_resp_parsed))
+                    for i, metric_name in enumerate(metric):
+                        lists[i].append(self.__calc_player_difference(metric_name, old_player_resp_parsed, new_player_resp_parsed))
                 # sort all lists from high to low
                 lists = [sorted(li,key= lambda x: x[1], reverse=True) for li in lists]
 
-                list_of_strings = []
+                list_of_strings = [f"The top 5 players in the CC for the period: {datetime.datetime.fromtimestamp(unix_time_then).strftime('%Y/%m/%d')} - {datetime.datetime.fromtimestamp(unix_time_now).strftime('%Y/%m/%d')}"]
+                
                 for i, metric_name in enumerate(metric):
                     list_of_strings.append(self.__create_monthly_message(lists[i],metric_name))
 
@@ -162,6 +164,7 @@ class TempleOsrs():
         else:
 
             resp = members_resp
+            print(len(resp))
             items = self.__parse_members(resp)
             member_0 = items[0]
             
@@ -189,9 +192,12 @@ class TempleOsrs():
             print(lists[3])
             print(lists[4])
 
-            list_of_strings = []
+            list_of_strings = [f"The top 5 players in the CC for the period: {datetime.datetime.fromtimestamp(1670088882).strftime('%Y/%m/%d')} - {datetime.datetime.fromtimestamp(int(time.time())).strftime('%Y/%m/%d')}"]
             for i, metric_name in enumerate(metric):
                 list_of_strings.append(self.__create_monthly_message(lists[i],metric_name))
+
+            for i in list_of_strings:
+                print(i)
 
     def __calc_player_difference(self, metric: str, old_player: dict, new_player:dict) -> tuple:
         count = 0
@@ -210,7 +216,7 @@ class TempleOsrs():
             
             return response
         except Exception as e:
-            self.logger.error(f"Api response can't be decoded with error: {e}")
+            self.logger.error(f"Api response can't be decoded with error: {e} in __parse_members func")
 
     def __create_monthly_message(self, to_analyse: list, metric: str, num_to_highlight:int = 5 ) -> str:
         
@@ -220,27 +226,27 @@ class TempleOsrs():
             num_to_highlight = len(to_analyse)
         match metric:
             case "Overall_level":
-                str_to_return = f"``` \nIn number of levels gained in the last month the top {num_to_highlight} players: \n\n"
+                str_to_return = f"``` \nNumber of levels gained in the last month by the top {num_to_highlight} players in the CC: \n\n"
                 for i in range(num_to_highlight):
                     str_to_return += f'{to_analyse[i][0]} - {to_analyse[i][1]:,} levels\n'
                 str_to_return +="```"
             case "Overall":
-                str_to_return = f"``` \nIn total exp gained in the last month the top {num_to_highlight} players: \n\n"
+                str_to_return = f"``` \n(Most) Total exp gained in the last month by the top {num_to_highlight} players in the CC: \n\n"
                 for i in range(num_to_highlight):
-                    str_to_return += f'{to_analyse[i][0]} - {to_analyse[i][1]:,} exp\n'
+                    str_to_return += f'{to_analyse[i][0]} - {to_analyse[i][1]:,} EXP\n'
                 str_to_return +="```"
             case "boss":
-                str_to_return = f"``` \nIn total boss kc gained in the last month the top {num_to_highlight} players: \n\n"
+                str_to_return = f"``` \n(Most) boss kc gained in the last month by the top {num_to_highlight} players in the CC: \n\n"
                 for i in range(num_to_highlight):
                     str_to_return += f'{to_analyse[i][0]} - {to_analyse[i][1]:,} total KC\n'
                 str_to_return +="```"
             case "Ehb":
-                str_to_return = f"``` \nIn efficient boss hours gained in the last month the top {num_to_highlight} players: \n\n"
+                str_to_return = f"``` \n(Most) efficient boss hours gained in the last month by the top {num_to_highlight} players in the CC: \n\n"
                 for i in range(num_to_highlight):
                     str_to_return += f'{to_analyse[i][0]} - {to_analyse[i][1]:,.3f} EHB\n'
                 str_to_return +="```"
             case "Ehp":
-                str_to_return = f"``` \nIn efficient pet hours gained in the last month the top {num_to_highlight} players: \n\n"
+                str_to_return = f"``` \n(Most) efficient pet hours gained in the last month by the top {num_to_highlight} players in the CC: \n\n"
                 for i in range(num_to_highlight):
                     str_to_return += f'{to_analyse[i][0]} - {to_analyse[i][1]:,.3f} EHP\n'
                 str_to_return +="```"
