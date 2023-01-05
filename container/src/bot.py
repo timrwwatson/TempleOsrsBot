@@ -100,7 +100,7 @@ async def check_achievements(channel_num: int, command: bool=False):
     global last_check_time
     global list_to_send
     channel = bot.get_channel(int(channel_num))  # channel ID goes here
-    list_to_send = TO.get_cc_current_achievements()
+    list_to_send, monthly_check = TO.get_cc_current_achievements()
     logger.info(f"Finished check of achievements, found: {len(list_to_send)} items")
     last_check_time = datetime.now()
     if len(list_to_send) == 0 and command:
@@ -111,6 +111,9 @@ async def check_achievements(channel_num: int, command: bool=False):
                 await channel.send(msg)
             else:
                 logger.error(f"Bot fails to find channel: {channel} or message: {msg}")
+    
+    if monthly_check:
+        TO.get_cc_monthly_achievements()
         
 conf = read_conf()
 bot.run(conf["token"])
