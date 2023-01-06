@@ -8,11 +8,12 @@ import logging.handlers
 
 from temple_osrs import TempleOsrs
 
-version_num = 0.5
+version_num = 0.51
 version_date = "23/01/06"
 changelog="""```- Added monthly checks for most: exp gained, levels gained, ehb gained, ehp and boss kc. 
 - Added a command (!monthly) that allows the previous command to be queried, the bot will PM you, if the result isn't available it will tell you (hopefully)
 - Fixed a type in EHB being listed as KILLS
+- Fixed a few typos that stopped the bot getting to the monthly achievs :(
 - **TODO**: Get CC Monthly top player as listed on the temple osrs site```"""
 
 def read_conf() -> dict:
@@ -115,7 +116,6 @@ async def check_achievements(channel_num: int, command: bool=False):
     global monthly_list_to_send
     channel = bot.get_channel(int(channel_num))  # channel ID goes here
     list_to_send, monthly_check = TO.get_cc_current_achievements()
-    logger.info(f"Monthly check is: {monthly_check}")
     logger.info(f"Finished check of achievements, found: {len(list_to_send)} items")
     last_check_time = datetime.now()
     if len(list_to_send) == 0 and command:
@@ -128,6 +128,7 @@ async def check_achievements(channel_num: int, command: bool=False):
                 logger.error(f"Bot fails to find channel: {channel} or message: {msg}")
     
     if monthly_check:
+        logger.info(f"Starting Monthly check")
         monthly_list_to_send = await TO.get_cc_monthly_achievements()
         for msg in monthly_list_to_send:
             await channel.send(msg)

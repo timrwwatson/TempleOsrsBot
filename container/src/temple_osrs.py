@@ -1,7 +1,6 @@
 import requests
 import json
 import logging
-import os
 import time
 import datetime
 import asyncio
@@ -100,23 +99,23 @@ class TempleOsrs():
     
     def __write_time_file(self,time_to_write:str, unix_time_to_write:str, time_file:str=FILE_LOCATION)->None:
         with open(time_file, "w") as tf:
-            tf.write(time_to_write)
-            tf.write(unix_time_to_write)
+            tf.write(str(time_to_write))
+            tf.write(str(unix_time_to_write))
 
     def __compare_new_current_achievements(self, new_current: list)-> tuple:
         new_list = []
         new_current_list = []
-        time, unix = self.__read_time_file()
+        last_check_time, unix_time = self.__read_time_file()
 
-        monthly_check = ((int(time.time()) - unix) / 2592000) >= 1
+        monthly_check = ((int(time.time()) - unix_time) / 2592000) >= 1
         
-        if new_current[0].date <= time:
+        if new_current[0].date <= last_check_time:
             # Nothing to do, no new elements
             pass
         else:
-            self.__write_time_file(time_to_write=new_current[0].date, unix_time_to_write=unix)
+            self.__write_time_file(time_to_write=new_current[0].date, unix_time_to_write=unix_time)
             for achiev in new_current:
-                if achiev not in self.__last_current_achievements and achiev.date > time:
+                if achiev not in self.__last_current_achievements and achiev.date > last_check_time:
                     new_list.append(achiev)
                     new_current_list.append(achiev)
                 elif len(new_list) < 20:
@@ -155,7 +154,7 @@ class TempleOsrs():
                     resp_old = await self.__call_api("https://templeosrs.com/api/player_stats.php", {'player':member, 'bosses':'1','date':unix_time_then})
                     count += 1
                     old_player_resp_parsed = self.__parse_members(resp_old.content)
-                    print(member,count)
+                    # print(member,count)
                     await self.__check_to_sleep(count)
                     
                     if resp_old.ok and "data" in old_player_resp_parsed:
@@ -168,7 +167,6 @@ class TempleOsrs():
                         
                         if resp_new.ok and "data" in new_player_resp_parsed:
                             
-
                             for i, metric_name in enumerate(metric):
                                 lists[i].append(self.__calc_player_difference(metric_name, old_player_resp_parsed, new_player_resp_parsed))
                 # sort all lists from high to low
@@ -282,9 +280,6 @@ class TempleOsrs():
                 str_to_return +="```"
         return str_to_return
 
-
-    def cheat(self):
-        return self.__read_time_file("container/"+FILE_LOCATION)
 
 if __name__ == "__main__":
     TO = TempleOsrs()
