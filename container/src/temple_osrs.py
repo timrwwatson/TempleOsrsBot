@@ -162,7 +162,7 @@ class TempleOsrs():
                         resp_new = await self.__call_api("https://templeosrs.com/api/player_stats.php", {'player':member, 'bosses':'1','date':unix_time_now})
                         count += 1
                         new_player_resp_parsed = self.__parse_members(resp_new.content)
-                        print(member, count)
+                        #print(member, count)
                         await self.__check_to_sleep(count)
                         
                         if resp_new.ok and "data" in new_player_resp_parsed:
@@ -179,7 +179,7 @@ class TempleOsrs():
 
                 self.__write_time_file(time_now, str(unix_time_now), FILE_LOCATION)
 
-                self.logger.info(f"output strings: {list_of_strings}")
+                # self.logger.info(f"output strings: {list_of_strings}")
 
                 return list_of_strings
                 
