@@ -8,19 +8,16 @@ import logging.handlers
 
 from temple_osrs import TempleOsrs
 
-version_num = 0.51
+version_num = 0.52
 version_date = "23/01/06"
-changelog="""```- Added monthly checks for most: exp gained, levels gained, ehb gained, ehp and boss kc. 
-- Added a command (!monthly) that allows the previous command to be queried, the bot will PM you, if the result isn't available it will tell you (hopefully)
-- Fixed a typo in EHB being listed as KILLS
-- Fixed a few typos that stopped the bot getting to the monthly achievs :(
+changelog="""```- A few fixes in typos and trying to fix a few other things
 - **TODO**: Get CC Monthly top player as listed on the temple osrs site```"""
 
 def read_conf() -> dict:
     rtn_dict = {}
     with open("src/conf/conf", "r") as conf:
         for lines in conf:
-            lines.strip()
+            lines = lines.strip()
             split = lines.split("=")
             rtn_dict[split[0]] = split[1]
     return rtn_dict
@@ -51,7 +48,7 @@ bot = commands.Bot(command_prefix='!', description=description, intents=intents,
 TO = TempleOsrs()
 last_check_time = datetime.now()
 list_to_send = []
-monthly_list_to_send =  ['The top 5 players in the CC for the period: 2022/12/07 - 2023/01/06', '```Number of levels gained in the last month by the top 5 players in the CC: \n\nSavage Syn - 299 levels\nHenk Speklap - 195 levels\nOwo Kitty - 164 levels\nTealeuf - 157 levels\nAmby Fenix - 154 levels\n```', '```(Most) Total exp gained in the last month by the top 5 players in the CC: \n\nGg Joe - 62,657,621 EXP\nBig Brane - 54,128,088 EXP\nVlk1ng - 23,534,175 EXP\nThe Nevster - 21,028,764 EXP\nTop V1 - 19,654,752 EXP\n```', '```(Most) boss kc gained in the last month by the top 5 players in the CC: \n\nCinderal - 3,849 total KC\nTop V1 - 2,753 total KC\nConsumption - 1,248 total KC\nCookiehcake - 1,090 total KC\nRednation M8 - 962 total KC\n```', '```(Most) efficient boss hours gained in the last month by the top 5 players in the CC: \n\nBig Brane - 99.960 EHB\nLukezz - 87.949 EHB\nThe Nevster - 68.938 EHB\nTop V1 - 51.459 EHB\nCinderal - 40.266 EHB\n```', '```(Most) efficient pet hours gained in the last month by the top 5 players in the CC: \n\nGg Joe - 242.782 EHP\nBig Brane - 121.361 EHP\nTealeuf - 69.296 EHP\nAxeforrest - 60.658 EHP\nVlk1ng - 50.033 EHP\n```']
+monthly_list_to_send =  ['The top 5 players in the CC for the period: 2022/12/07 - 2023/01/06', '```Number of levels gained in the last month by the top 5 players in the CC: \n\nSavage Syn - 299 levels\nHenk Speklap - 195 levels\nOwo Kitty - 164 levels\nTealeuf - 157 levels\nAmby Fenix - 154 levels\n```', '```(Most) Total exp gained in the last month by the top 5 players in the CC: \n\nGg Joe - 62,657,621 EXP\nBig Brane - 54,128,088 EXP\nVlk1ng - 23,534,175 EXP\nThe Nevster - 21,028,764 EXP\nTop V1 - 19,654,752 EXP\n```', '```(Most) boss kc gained in the last month by the top 5 players in the CC: \n\nCinderal - 3,849 total KC\nTop V1 - 2,753 total KC\nConsumption - 1,248 total KC\nCookiehcake - 1,090 total KC\nRednation M8 - 962 total KC\n```', '```(Most) efficient boss hours gained in the last month by the top 5 players in the CC: \n\nBig Brane - 99.960 EHB\nLukezz - 87.949 EHB\nThe Nevster - 68.938 EHB\nTop V1 - 51.459 EHB\nCinderal - 40.266 EHB\n```', '```(Most) efficient hours played in the last month by the top 5 players in the CC: \n\nGg Joe - 242.782 EHP\nBig Brane - 121.361 EHP\nTealeuf - 69.296 EHP\nAxeforrest - 60.658 EHP\nVlk1ng - 50.033 EHP\n```']
 
 
 
@@ -134,4 +131,5 @@ async def check_achievements(channel_num: int, command: bool=False):
             await channel.send(msg)
         
 conf = read_conf()
-bot.run(conf["token"])
+print(conf)
+#bot.run(conf["token"])

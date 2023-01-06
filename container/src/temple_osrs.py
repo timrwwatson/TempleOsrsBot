@@ -106,7 +106,7 @@ class TempleOsrs():
         new_current_list = []
         last_check_time, unix_time = self.__read_time_file()
 
-        monthly_check = ((int(time.time()) - unix_time) / 2592000) >= 1
+        monthly_check = ((int(time.time()) - int(unix_time)) / 2592000) >= 1
         
         if new_current[0].date <= last_check_time:
             # Nothing to do, no new elements
@@ -273,7 +273,7 @@ class TempleOsrs():
                     str_to_return += f'{to_analyse[i][0]} - {to_analyse[i][1]:,.3f} EHB\n'
                 str_to_return +="```"
             case "Ehp":
-                str_to_return = f"```(Most) efficient pet hours gained in the last month by the top {num_to_highlight} players in the CC: \n\n"
+                str_to_return = f"```(Most) efficient hours played in the last month by the top {num_to_highlight} players in the CC: \n\n"
                 for i in range(num_to_highlight):
                     str_to_return += f'{to_analyse[i][0]} - {to_analyse[i][1]:,.3f} EHP\n'
                 str_to_return +="```"
