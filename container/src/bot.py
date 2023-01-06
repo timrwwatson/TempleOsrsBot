@@ -115,6 +115,7 @@ async def check_achievements(channel_num: int, command: bool=False):
     global monthly_list_to_send
     channel = bot.get_channel(int(channel_num))  # channel ID goes here
     list_to_send, monthly_check = TO.get_cc_current_achievements()
+    logger.info(f"Monthly check is: {monthly_check}")
     logger.info(f"Finished check of achievements, found: {len(list_to_send)} items")
     last_check_time = datetime.now()
     if len(list_to_send) == 0 and command:

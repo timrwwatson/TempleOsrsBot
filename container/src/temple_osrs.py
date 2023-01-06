@@ -88,7 +88,7 @@ class TempleOsrs():
 
     def __read_time_file(self, time_file:str=FILE_LOCATION)->str:
         time_in_file = ""
-        print(os.getcwd())
+        
         with open(time_file, "r") as tf:
             time_in_file = tf.readline()
             time_in_file.strip().replace("\r\n","")
@@ -284,14 +284,12 @@ class TempleOsrs():
 
 
     def cheat(self):
-        return self.__read_time_file(FILE_LOCATION)
+        return self.__read_time_file("container/"+FILE_LOCATION)
 
 if __name__ == "__main__":
     TO = TempleOsrs()
     #TO.get_cc_monthly_achievements(debug=True)
-    t, _ = TO.cheat()
-    print(t)
-    print("----")
-    print(t.replace("\n",""))
-    print("----")
+    _,unix = TO.cheat()
+    monthly_check = ((int(time.time()) - int(unix)) / 2592000) >= 1
+    print(unix, monthly_check, int(unix), (int(time.time()) - int(unix)) / 2592000)
     
