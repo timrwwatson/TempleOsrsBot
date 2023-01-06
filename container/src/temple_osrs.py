@@ -4,6 +4,7 @@ import logging
 import os
 import time
 import datetime
+import asyncio
 
 FILE_LOCATION = "src/conf/time.output"
 resp_test = b'{"data":[{"Username":"Saltysyra","Date":"2022-12-16 09:29:12","Skill":"Smithing","Type":"Skill","Xp":5000000},{"Username":"Consumption","Date":"2022-12-16 08:49:25","Skill":"General Graardor","Type":"Pvm","Xp":300},{"Username":"Lukezz","Date":"2022-12-15 23:17:05","Skill":"Hitpoints","Type":"Skill","Xp":90000000},{"Username":"Cookiehcake","Date":"2022-12-15 22:59:40","Skill":"Dagannoth Rex","Type":"Pvm","Xp":1300},{"Username":"Cookiehcake","Date":"2022-12-15 22:59:40","Skill":"Dagannoth Supreme","Type":"Pvm","Xp":1300},{"Username":"Cookiehcake","Date":"2022-12-15 22:59:40","Skill":"KreeArra","Type":"Pvm","Xp":1000},{"Username":"Syraspecial","Date":"2022-12-15 22:33:08","Skill":"Alchemical Hydra","Type":"Pvm","Xp":100},{"Username":"Top V1","Date":"2022-12-15 20:53:37","Skill":"Dagannoth Rex","Type":"Pvm","Xp":1900},{"Username":"Top V1","Date":"2022-12-15 20:53:37","Skill":"Dagannoth Supreme","Type":"Pvm","Xp":1800},{"Username":"Cinderal","Date":"2022-12-15 19:13:43","Skill":"Zulrah","Type":"Pvm","Xp":100},{"Username":"Vlk1ng","Date":"2022-12-15 17:43:22","Skill":"King Black Dragon","Type":"Pvm","Xp":1300},{"Username":"Top V1","Date":"2022-12-15 17:41:29","Skill":"Alchemical Hydra","Type":"Pvm","Xp":1600},{"Username":"Consumption","Date":"2022-12-15 17:33:24","Skill":"General Graardor","Type":"Pvm","Xp":200},{"Username":"Lukezz","Date":"2022-12-15 13:23:33","Skill":"Nex","Type":"Pvm","Xp":900},{"Username":"Confusedgali","Date":"2022-12-15 10:00:49","Skill":"Ehp","Type":"Skill","Xp":300},{"Username":"Confusedgali","Date":"2022-12-15 10:00:49","Skill":"Clue_medium","Type":"Pvm","Xp":200},{"Username":"Confusedgali","Date":"2022-12-15 10:00:49","Skill":"Wintertodt","Type":"Pvm","Xp":100},{"Username":"Waldroni","Date":"2022-12-15 06:56:00","Skill":"Attack","Type":"Skill","Xp":5000000},{"Username":"Cinderal","Date":"2022-12-15 06:31:50","Skill":"Mining","Type":"Skill","Xp":15000000},{"Username":"Top V1","Date":"2022-12-15 00:31:23","Skill":"Dagannoth Supreme","Type":"Pvm","Xp":1700},{"Username":"Top V1","Date":"2022-12-15 00:31:23","Skill":"Thermonuclear Smoke Devil","Type":"Pvm","Xp":3400},{"Username":"Top V1","Date":"2022-12-15 00:31:23","Skill":"Ranged","Type":"Skill","Xp":45000000},{"Username":"Top V1","Date":"2022-12-15 00:31:23","Skill":"Dagannoth Prime","Type":"Pvm","Xp":1700},{"Username":"Top V1","Date":"2022-12-14 13:02:43","Skill":"KreeArra","Type":"Pvm","Xp":100},{"Username":"The Nevster","Date":"2022-12-14 12:40:09","Skill":"Strength","Type":"Skill","Xp":25000000}]}'
@@ -28,16 +29,16 @@ class Achievement():
 
     def __repr__(self) -> str:
         rtn_str = f"{self.username}"
-        if self.type == "Pvm" and not("Clue" in self.skill):
+        if self.type == "Pvm" and not("Clue" in self.skill or "Ehb" in self.skill):
             rtn_str += f" has reached {self.xp} in {self.skill} kills!" 
         elif self.type == "Pvm" and ("Clue" in self.skill):
             idx = self.skill.find("Clue_") + 5
             rtn_str += f" has completed {self.xp} {self.skill[idx:]} clues!" 
         elif self.type == "Skill" and ("Ehp" in self.skill):
             rtn_str += f" has reached {self.xp} EHP" 
-        elif self.type == "Skill" and ("Ehb" in self.skill):
+        elif self.type == "Pvm" and ("Ehb" in self.skill):
             rtn_str += f" has reached {self.xp} EHB" 
-        elif self.type == "Skill" and not ("Ehp" in self.skill or "Ehb" in self.skill):
+        elif self.type == "Skill" and not ("Ehp" in self.skill):
             rtn_str += f" has reached {self.xp} xp in {self.skill}!" 
         return rtn_str
 
@@ -86,16 +87,18 @@ class TempleOsrs():
             self.logger.error(f"Api response can't be decoded with error: {e}")
 
     def __read_time_file(self, time_file:str=FILE_LOCATION)->str:
-        time = ""
+        time_in_file = ""
         print(os.getcwd())
         with open(time_file, "r") as tf:
-            time = tf.readline()
-            time.strip()
+            time_in_file = tf.readline()
+            time_in_file.strip().replace("\r\n","")
             unix = tf.readline()
             unix.strip()
-        return time, unix
+        if len(unix)<1:
+            unix = int(time.time()) - 2592000
+        return time_in_file, unix
     
-    def __write_time_file(self,time_to_write:str, unix_time_to_write:int, time_file:str=FILE_LOCATION)->None:
+    def __write_time_file(self,time_to_write:str, unix_time_to_write:str, time_file:str=FILE_LOCATION)->None:
         with open(time_file, "w") as tf:
             tf.write(time_to_write)
             tf.write(unix_time_to_write)
@@ -105,11 +108,7 @@ class TempleOsrs():
         new_current_list = []
         time, unix = self.__read_time_file()
 
-        if len(unix)<1:
-            monthly_check = True
-            unix = int(time.time()) - 2592000
-        else:
-            monthly_check = ((int(time.time()) - unix) / 2592000) >= 1
+        monthly_check = ((int(time.time()) - unix) / 2592000) >= 1
         
         if new_current[0].date <= time:
             # Nothing to do, no new elements
@@ -127,34 +126,62 @@ class TempleOsrs():
             self.__last_current_achievements = new_current_list
         return new_list, monthly_check
 
-    def get_cc_monthly_achievements(self, debug: bool=False) -> list:
+    async def __call_api(self, url: str, params: dict):
+        resp = requests.get(url, params=params)
+        resp.raise_for_status()
+        # a short sleep to give a chance for the bot to call home (avoid weird random errors popping up >:/)
+        await asyncio.sleep(0.5)
+        return resp
+
+    async def __check_to_sleep(self, count:int, seconds_to_sleep:int=45) -> None:
+        if count % 50 == 0:
+            self.logger.info(f"Reached 50 requests, sleeping for {seconds_to_sleep} seconds")
+            await asyncio.sleep(seconds_to_sleep)
+            
+    async def get_cc_monthly_achievements(self, debug: bool=False) -> list:
         lists = [[] for i in range(5)]
         metric = ["Overall_level", "Overall", "boss", "Ehb", "Ehp"]
-        
+        count = 0
         if not debug:
             resp = requests.get("https://templeosrs.com/api/groupmembers.php", params={'id':self.id})
             if resp.ok:
-                members = self.__parse_members(resp)
+                members = self.__parse_members(resp.content)
                 self.logger.info(f"Retrieved monthly group members list, len: {len(members)}")
                 time_now, unix_time_then = self.__read_time_file(FILE_LOCATION)
                 unix_time_now = int(time.time())
+                self.logger.info(f"Times are: time_now: {time_now}, unix_time_then: {unix_time_then} and unix_time_now: {unix_time_now}")
                 for member in members:
-                    resp_old = requests.get("https://templeosrs.com/api/player_stats.php", params={'player':member, 'bosses':'1','date':unix_time_then})
-                    old_player_resp_parsed = self.__parse_members(resp_old)
-                    resp_new = requests.get("https://templeosrs.com/api/player_stats.php", params={'player':member, 'bosses':'1','date':unix_time_now})
-                    new_player_resp_parsed = self.__parse_members(resp_new)
+                    
+                    resp_old = await self.__call_api("https://templeosrs.com/api/player_stats.php", {'player':member, 'bosses':'1','date':unix_time_then})
+                    count += 1
+                    old_player_resp_parsed = self.__parse_members(resp_old.content)
+                    print(member,count)
+                    await self.__check_to_sleep(count)
+                    
+                    if resp_old.ok and "data" in old_player_resp_parsed:
+                        
+                        resp_new = await self.__call_api("https://templeosrs.com/api/player_stats.php", {'player':member, 'bosses':'1','date':unix_time_now})
+                        count += 1
+                        new_player_resp_parsed = self.__parse_members(resp_new.content)
+                        print(member, count)
+                        await self.__check_to_sleep(count)
+                        
+                        if resp_new.ok and "data" in new_player_resp_parsed:
+                            
 
-                    for i, metric_name in enumerate(metric):
-                        lists[i].append(self.__calc_player_difference(metric_name, old_player_resp_parsed, new_player_resp_parsed))
+                            for i, metric_name in enumerate(metric):
+                                lists[i].append(self.__calc_player_difference(metric_name, old_player_resp_parsed, new_player_resp_parsed))
                 # sort all lists from high to low
                 lists = [sorted(li,key= lambda x: x[1], reverse=True) for li in lists]
 
-                list_of_strings = [f"The top 5 players in the CC for the period: {datetime.datetime.fromtimestamp(unix_time_then).strftime('%Y/%m/%d')} - {datetime.datetime.fromtimestamp(unix_time_now).strftime('%Y/%m/%d')}"]
+                list_of_strings = [f"The top 5 players in the CC for the period: {datetime.datetime.fromtimestamp(int(unix_time_then)).strftime('%Y/%m/%d')} - {datetime.datetime.fromtimestamp(unix_time_now).strftime('%Y/%m/%d')}"]
                 
                 for i, metric_name in enumerate(metric):
                     list_of_strings.append(self.__create_monthly_message(lists[i],metric_name))
 
-                self.__write_time_file(time_now, unix_time_now, FILE_LOCATION)
+                self.__write_time_file(time_now, str(unix_time_now), FILE_LOCATION)
+
+                self.logger.info(f"output strings: {list_of_strings}")
 
                 return list_of_strings
                 
@@ -201,12 +228,15 @@ class TempleOsrs():
 
     def __calc_player_difference(self, metric: str, old_player: dict, new_player:dict) -> tuple:
         count = 0
-        if metric == "boss":
-            for boss in bosses:
-                count += int(new_player["data"][boss]) - int(old_player["data"][boss])
-        else:
-            count = new_player["data"][metric] - old_player["data"][metric]
-        return (new_player["data"]["info"]["Username"], count)
+        try:
+            if metric == "boss":
+                for boss in bosses:
+                    count += int(new_player["data"][boss]) - int(old_player["data"][boss])
+            else:
+                count = new_player["data"][metric] - old_player["data"][metric]
+            return (new_player["data"]["info"]["Username"], count)
+        except KeyError as ke:
+            self.logger.error(f"There was a key error while calculating player difference: {ke} the data was: {new_player} \n and: {old_player}")
 
     
     def __parse_members(self, response: str) -> dict:
@@ -226,36 +256,42 @@ class TempleOsrs():
             num_to_highlight = len(to_analyse)
         match metric:
             case "Overall_level":
-                str_to_return = f"``` \nNumber of levels gained in the last month by the top {num_to_highlight} players in the CC: \n\n"
+                str_to_return = f"```Number of levels gained in the last month by the top {num_to_highlight} players in the CC: \n\n"
                 for i in range(num_to_highlight):
                     str_to_return += f'{to_analyse[i][0]} - {to_analyse[i][1]:,} levels\n'
                 str_to_return +="```"
             case "Overall":
-                str_to_return = f"``` \n(Most) Total exp gained in the last month by the top {num_to_highlight} players in the CC: \n\n"
+                str_to_return = f"```(Most) Total exp gained in the last month by the top {num_to_highlight} players in the CC: \n\n"
                 for i in range(num_to_highlight):
                     str_to_return += f'{to_analyse[i][0]} - {to_analyse[i][1]:,} EXP\n'
                 str_to_return +="```"
             case "boss":
-                str_to_return = f"``` \n(Most) boss kc gained in the last month by the top {num_to_highlight} players in the CC: \n\n"
+                str_to_return = f"```(Most) boss kc gained in the last month by the top {num_to_highlight} players in the CC: \n\n"
                 for i in range(num_to_highlight):
                     str_to_return += f'{to_analyse[i][0]} - {to_analyse[i][1]:,} total KC\n'
                 str_to_return +="```"
             case "Ehb":
-                str_to_return = f"``` \n(Most) efficient boss hours gained in the last month by the top {num_to_highlight} players in the CC: \n\n"
+                str_to_return = f"```(Most) efficient boss hours gained in the last month by the top {num_to_highlight} players in the CC: \n\n"
                 for i in range(num_to_highlight):
                     str_to_return += f'{to_analyse[i][0]} - {to_analyse[i][1]:,.3f} EHB\n'
                 str_to_return +="```"
             case "Ehp":
-                str_to_return = f"``` \n(Most) efficient pet hours gained in the last month by the top {num_to_highlight} players in the CC: \n\n"
+                str_to_return = f"```(Most) efficient pet hours gained in the last month by the top {num_to_highlight} players in the CC: \n\n"
                 for i in range(num_to_highlight):
                     str_to_return += f'{to_analyse[i][0]} - {to_analyse[i][1]:,.3f} EHP\n'
                 str_to_return +="```"
         return str_to_return
 
 
-
+    def cheat(self):
+        return self.__read_time_file(FILE_LOCATION)
 
 if __name__ == "__main__":
     TO = TempleOsrs()
-    TO.get_cc_monthly_achievements(debug=True)
+    #TO.get_cc_monthly_achievements(debug=True)
+    t, _ = TO.cheat()
+    print(t)
+    print("----")
+    print(t.replace("\n",""))
+    print("----")
     

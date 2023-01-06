@@ -8,11 +8,12 @@ import logging.handlers
 
 from temple_osrs import TempleOsrs
 
-version_num = 0.41
-version_date = "23/01/03"
-changelog="""```- Added EHB check
-- Container-ised bot (docker) to run on my PI :)
-- **TODO**: Get CC Monthly top player```"""
+version_num = 0.5
+version_date = "23/01/06"
+changelog="""```- Added monthly checks for most: exp gained, levels gained, ehb gained, ehp and boss kc. 
+- Added a command (!monthly) that allows the previous command to be queried, the bot will PM you, if the result isn't available it will tell you (hopefully)
+- Fixed a type in EHB being listed as KILLS
+- **TODO**: Get CC Monthly top player as listed on the temple osrs site```"""
 
 def read_conf() -> dict:
     rtn_dict = {}
@@ -52,6 +53,7 @@ list_to_send = []
 monthly_list_to_send = []
 
 
+
 @bot.event
 async def on_ready():
     print(f'Logged in as {bot.user} (ID: {bot.user.id})')
@@ -84,25 +86,17 @@ async def monthly(ctx):
     global monthly_list_to_send
     if len(monthly_list_to_send) < 1:
         logger.warning(f"User: {ctx.message.author} tried to check the monthly cc records but it was empty")
-        await ctx.message.author.send("Unfortuantely there are no stored monthly records, sorry!")
+        await ctx.message.author.send("Unfortunately there are no stored monthly records, sorry!")
     else:
         for msg in monthly_list_to_send:
             await ctx.message.author.send(msg)
 
-@bot.command(help="Get previous monthly CC achievements/top players")
-async def debug(channel_num: int, command: bool=False):
-    
-    channel = bot.get_channel(int(channel_num))  # channel ID goes here
-    monthly_list_to_send = TO.get_cc_monthly_achievements()
-    for msg in monthly_list_to_send:
-        await channel.send(msg)
-
 @bot.event
 async def setup_hook() -> None:
     # start the task to run in the background
-    #bot.bg_task = bot.loop.create_task(bot.my_background_task())
-    global list_to_send
-    list_to_send = ["trial", "by", "fire"]
+    bot.bg_task = bot.loop.create_task(bot.my_background_task())
+    #global list_to_send
+    #list_to_send = ["trial", "by", "fire"]
     #pass
        
 
@@ -133,7 +127,7 @@ async def check_achievements(channel_num: int, command: bool=False):
                 logger.error(f"Bot fails to find channel: {channel} or message: {msg}")
     
     if monthly_check:
-        monthly_list_to_send = TO.get_cc_monthly_achievements()
+        monthly_list_to_send = await TO.get_cc_monthly_achievements()
         for msg in monthly_list_to_send:
             await channel.send(msg)
         
