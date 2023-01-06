@@ -112,7 +112,7 @@ class TempleOsrs():
             # Nothing to do, no new elements
             pass
         else:
-            self.__write_time_file(time_to_write=new_current[0].date, unix_time_to_write=unix_time)
+            self.__write_time_file(time_to_write=new_current[0].date, unix_time_to_write=int(unix_time))
             for achiev in new_current:
                 if achiev not in self.__last_current_achievements and achiev.date > last_check_time:
                     new_list.append(achiev)
@@ -280,11 +280,13 @@ class TempleOsrs():
         return str_to_return
 
     def cheat(self):
-        self.__write_time_file("2023-01-06 06:07:30", str(time.time()), "container/src/conf/time.output")
+        self.__write_time_file("2023-01-06 06:07:30", str(int(time.time())), "container/src/conf/time.output")
         print(self.__read_time_file("container/src/conf/time.output"))
 
 
 if __name__ == "__main__":
+    print(int(time.time()))
+    print(str(int(time.time())))
     TO = TempleOsrs()
     #TO.get_cc_monthly_achievements(debug=True)
     TO.cheat()

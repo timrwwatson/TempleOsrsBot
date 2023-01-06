@@ -131,5 +131,4 @@ async def check_achievements(channel_num: int, command: bool=False):
             await channel.send(msg)
         
 conf = read_conf()
-print(conf)
-#bot.run(conf["token"])
+bot.run(conf["token"])
