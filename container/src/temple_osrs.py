@@ -90,7 +90,7 @@ class TempleOsrs():
         
         with open(time_file, "r") as tf:
             time_in_file = tf.readline()
-            time_in_file.strip().replace("\r\n","")
+            time_in_file = time_in_file.strip()
             unix = tf.readline()
             unix.strip()
         if len(unix)<1:
@@ -99,8 +99,7 @@ class TempleOsrs():
     
     def __write_time_file(self,time_to_write:str, unix_time_to_write:str, time_file:str=FILE_LOCATION)->None:
         with open(time_file, "w") as tf:
-            tf.write(str(time_to_write))
-            tf.write(str(unix_time_to_write))
+            tf.writelines([str(time_to_write),"\n", str(unix_time_to_write)])
 
     def __compare_new_current_achievements(self, new_current: list)-> tuple:
         new_list = []
@@ -280,11 +279,13 @@ class TempleOsrs():
                 str_to_return +="```"
         return str_to_return
 
+    def cheat(self):
+        self.__write_time_file("2023-01-06 06:07:30", str(time.time()), "container/src/conf/time.output")
+        print(self.__read_time_file("container/src/conf/time.output"))
+
 
 if __name__ == "__main__":
     TO = TempleOsrs()
     #TO.get_cc_monthly_achievements(debug=True)
-    _,unix = TO.cheat()
-    monthly_check = ((int(time.time()) - int(unix)) / 2592000) >= 1
-    print(unix, monthly_check, int(unix), (int(time.time()) - int(unix)) / 2592000)
+    TO.cheat()
     
