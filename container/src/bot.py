@@ -8,9 +8,9 @@ import logging.handlers
 
 from temple_osrs import TempleOsrs
 
-version_num = 0.52
-version_date = "23/01/06"
-changelog="""```- A few fixes in typos and trying to fix a few other things
+version_num = 0.53
+version_date = "23/01/10"
+changelog="""```- Handling network errors that have occured?
 - **TODO**: Get CC Monthly top player as listed on the temple osrs site```"""
 
 def read_conf() -> dict:
@@ -102,33 +102,40 @@ async def setup_hook() -> None:
 async def my_background_task():
     await bot.wait_until_ready()
     while not bot.is_closed():
-        logger.info("Running background check")
-        await check_achievements(conf["channelid"])
-        await asyncio.sleep(int(conf["time"]))
+        try:
+            logger.info("Running background check")
+            await check_achievements(conf["channelid"])
+            await asyncio.sleep(int(conf["time"]))
+        except Exception as e:
+            logger.exception(f"Exception hit in my_background_task with exception text: {e}")
         
     
 async def check_achievements(channel_num: int, command: bool=False):
     global last_check_time
     global list_to_send
     global monthly_list_to_send
-    channel = bot.get_channel(int(channel_num))  # channel ID goes here
-    list_to_send, monthly_check = TO.get_cc_current_achievements()
-    logger.info(f"Finished check of achievements, found: {len(list_to_send)} items")
-    last_check_time = datetime.now()
-    if len(list_to_send) == 0 and command:
-        await channel.send(f"No new achievements found!")
-    else:
-        for msg in list_to_send:
-            if msg and channel:
-                await channel.send(msg)
-            else:
-                logger.error(f"Bot fails to find channel: {channel} or message: {msg}")
-    
-    if monthly_check:
-        logger.info(f"Starting Monthly check")
-        monthly_list_to_send = await TO.get_cc_monthly_achievements()
-        for msg in monthly_list_to_send:
-            await channel.send(msg)
+    try:
+        channel = bot.get_channel(int(channel_num))  # channel ID goes here
+        list_to_send, monthly_check = TO.get_cc_current_achievements()
+        logger.info(f"Finished check of achievements, found: {len(list_to_send)} items")
+        last_check_time = datetime.now()
+        if len(list_to_send) == 0 and command:
+            await channel.send(f"No new achievements found!")
+        else:
+            for msg in list_to_send:
+                if msg and channel:
+                    await channel.send(msg)
+                else:
+                    logger.error(f"Bot fails to find channel: {channel} or message: {msg}")
         
+        if monthly_check:
+            logger.info(f"Starting Monthly check")
+            monthly_list_to_send = await TO.get_cc_monthly_achievements()
+            for msg in monthly_list_to_send:
+                await channel.send(msg)
+        
+    except Exception as e:
+        logger.exception(f"While running check_achievements an exception was thrown: {e}")
+
 conf = read_conf()
 bot.run(conf["token"])
