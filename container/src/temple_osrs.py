@@ -56,7 +56,7 @@ class TempleOsrs():
                 return self.__compare_new_current_achievements(items)
             else:
                 self.logger.error(f"Request to templeosrs failed with status code: {resp.status_code} with reason: {resp.reason}")
-                return []
+                return [], False
         else:
 
             resp = resp_test
