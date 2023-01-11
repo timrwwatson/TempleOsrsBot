@@ -8,9 +8,9 @@ import logging.handlers
 
 from temple_osrs import TempleOsrs
 
-version_num = 0.53
-version_date = "23/01/10"
-changelog="""```- Handling network errors that have occured?
+version_num = 0.531
+version_date = "23/01/11"
+changelog="""```- Added Phantom Muspah to the monthly check list ...
 - **TODO**: Get CC Monthly top player as listed on the temple osrs site```"""
 
 def read_conf() -> dict:
