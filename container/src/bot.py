@@ -8,9 +8,9 @@ import logging.handlers
 
 from temple_osrs import TempleOsrs
 
-version_num = 0.54
-version_date = "23/01/28"
-changelog="""```- Empyreal
+version_num = 0.55
+version_date = "23/04/12"
+changelog="""```- Updated the bot to handle someone getting a level 99 notification :)
 - **TODO**: Get CC Monthly top player as listed on the temple osrs site```"""
 
 def read_conf() -> dict:
