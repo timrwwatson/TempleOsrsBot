@@ -8,10 +8,10 @@ import logging.handlers
 
 from temple_osrs import TempleOsrs
 
-version_num = 0.54
-version_date = "23/01/28"
+version_num = 0.6
+version_date = "23/07/26"
 changelog="""```- Empyreal
-- **TODO**: Get CC Monthly top player as listed on the temple osrs site```"""
+- Update for DT2, added new Async... hopefully it works```"""
 
 def read_conf() -> dict:
     rtn_dict = {}
@@ -115,7 +115,7 @@ async def check_achievements(channel_num: int, command: bool=False):
     global monthly_list_to_send
     try:
         channel = bot.get_channel(int(channel_num))  # channel ID goes here
-        list_to_send, monthly_check = TO.get_cc_current_achievements()
+        list_to_send, monthly_check = await TO.get_cc_current_achievements()
         logger.info(f"Finished check of achievements, found: {len(list_to_send)} items")
         last_check_time = datetime.now()
         if len(list_to_send) == 0 and command:

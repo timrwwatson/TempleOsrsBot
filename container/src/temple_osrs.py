@@ -13,7 +13,7 @@ new_player_resp = b'\r\n{"data":{"info":{"Username":"Weapons","Country":"-","Gam
 old_player_resp = b'\r\n{"data":{"info":{"Username":"Weapons","Country":"-","Game mode":0,"Cb-3":0,"F2p":0,"Banned":0,"Disqualified":0,"Clan preference":null,"Last checked":"2022-12-05 20:32:52","Last checked unix":1670272372},"Date":"2022-11-14 09:50:40","Overall":308376211,"Overall_rank":141172,"Overall_level":2066,"Overall_ehp":518.1998371928617,"Attack":27641618,"Attack_rank":23992,"Attack_level":99,"Attack_ehp":0,"Defence":17618410,"Defence_rank":54273,"Defence_level":99,"Defence_ehp":42.47507836107675,"Strength":33603881,"Strength_rank":32338,"Strength_level":99,"Strength_ehp":0,"Hitpoints":56518945,"Hitpoints_rank":19572,"Hitpoints_level":99,"Hitpoints_ehp":0.282594725,"Ranged":62977153,"Ranged_rank":16130,"Ranged_level":99,"Ranged_ehp":23.16263943703979,"Prayer":5519613,"Prayer_rank":146580,"Prayer_level":90,"Prayer_ehp":3.0664516666666666,"Magic":20253442,"Magic_rank":50916,"Magic_level":99,"Magic_ehp":0.10126721,"Cooking":5463394,"Cooking_rank":391905,"Cooking_level":90,"Cooking_ehp":7.430515606914457,"Woodcutting":6239478,"Woodcutting_rank":175725,"Woodcutting_level":91,"Woodcutting_ehp":36.57806247608179,"Fletching":7206815,"Fletching_rank":225423,"Fletching_level":93,"Fletching_ehp":0.036034075,"Fishing":3270716,"Fishing_rank":318246,"Fishing_level":85,"Fishing_ehp":28.08621180091648,"Firemaking":4924605,"Firemaking_rank":370864,"Firemaking_level":89,"Firemaking_ehp":9.306722078504851,"Crafting":5371583,"Crafting_rank":186704,"Crafting_level":90,"Crafting_ehp":18.88636403442318,"Smithing":3649162,"Smithing_rank":179488,"Smithing_level":86,"Smithing_ehp":10.4357,"Mining":3302885,"Mining_rank":203562,"Mining_level":85,"Mining_ehp":33.70916451142666,"Herblore":5587170,"Herblore_rank":123335,"Herblore_level":90,"Herblore_ehp":14.122894347898734,"Agility":1806889,"Agility_rank":268873,"Agility_level":79,"Agility_ehp":34.063574751937715,"Thieving":2032279,"Thieving_rank":284985,"Thieving_level":80,"Thieving_ehp":15.875563939393938,"Slayer":20569214,"Slayer_rank":18699,"Slayer_level":99,"Slayer_ehp":219.2718836228897,"Farming":9927420,"Farming_rank":189841,"Farming_level":96,"Farming_ehp":9.740989091478696,"Runecraft":1104359,"Runecraft_rank":264083,"Runecraft_level":74,"Runecraft_ehp":5.047783333333333,"Hunter":815990,"Hunter_rank":524979,"Hunter_level":71,"Hunter_ehp":3.2479673695685145,"Construction":2971190,"Construction_rank":203423,"Construction_level":84,"Construction_ehp":3.2723747533104155,"Ehp":518.1998,"Ehp_rank":84498,"Im_ehp":0,"Lvl3_ehp":0,"F2p_ehp":0,"Uim_ehp":0,"Clue_all":243,"Clue_beginner":0,"Clue_easy":2,"Clue_medium":6,"Clue_hard":153,"Clue_elite":71,"Clue_master":11,"LMS":0,"Abyssal Sire":685,"Abyssal Sire_ehb":15.222222222222221,"Alchemical Hydra":2219,"Alchemical Hydra_ehb":67.24242424242425,"Barrows Chests":277,"Bryophyta":0,"Callisto":0,"Callisto_ehb":0,"Cerberus":1503,"Cerberus_ehb":24.639344262295083,"Chambers of Xeric":724,"Chambers of Xeric_ehb":241.33333333333334,"Chambers of Xeric Challenge Mode":62,"Chambers of Xeric Challenge Mode_ehb":25.833333333333336,"Chaos Elemental":0,"Chaos Elemental_ehb":0,"Chaos Fanatic":0,"Chaos Fanatic_ehb":0,"Commander Zilyana":95,"Commander Zilyana_ehb":1.7272727272727273,"Corporeal Beast":105,"Corporeal Beast_ehb":1.75,"Crazy Archaeologist":0,"Dagannoth Prime":253,"Dagannoth Prime_ehb":2.53,"Dagannoth Rex":314,"Dagannoth Rex_ehb":3.14,"Dagannoth Supreme":319,"Dagannoth Supreme_ehb":3.19,"Deranged Archaeologist":0,"General Graardor":821,"General Graardor_ehb":14.927272727272728,"Giant Mole":126,"Giant Mole_ehb":1.26,"Grotesque Guardians":232,"Grotesque Guardians_ehb":6.444444444444445,"Hespori":0,"Kalphite Queen":67,"Kalphite Queen_ehb":1.34,"King Black Dragon":0,"King Black Dragon_ehb":0,"Kraken":3194,"Kraken_ehb":31.94,"KreeArra":673,"KreeArra_ehb":16.825,"Kril Tsutsaroth":658,"Kril Tsutsaroth_ehb":10.123076923076923,"Mimic":1,"Obor":0,"Sarachnis":0,"Sarachnis_ehb":0,"Scorpia":0,"Scorpia_ehb":0,"Skotizo":46,"Skotizo_ehb":1.0222222222222221,"The Gauntlet":0,"The Gauntlet_ehb":0,"The Corrupted Gauntlet":106,"The Corrupted Gauntlet_ehb":15.142857142857142,"Theatre of Blood":0,"Theatre of Blood_ehb":0,"Thermonuclear Smoke Devil":1042,"Thermonuclear Smoke Devil_ehb":8.336,"TzKal-Zuk":0,"TzKal-Zuk_ehb":0,"TzTok-Jad":11,"TzTok-Jad_ehb":5.5,"Venenatis":92,"Venenatis_ehb":1.84,"Vetion":0,"Vetion_ehb":0,"Vorkath":1882,"Vorkath_ehb":55.35294117647059,"Wintertodt":196,"Zalcano":0,"Zulrah":1973,"Zulrah_ehb":49.325,"The Nightmare":0,"The Nightmare_ehb":0,"Soul Wars Zeal":0,"Tempoross":0,"Theatre of Blood Challenge Mode":0,"Theatre of Blood Challenge Mode_ehb":0,"Bounty Hunter Hunter":0,"Bounty Hunter Rogue":0,"Phosanis Nightmare":0,"Phosanis Nightmare_ehb":0,"Nex":965,"Nex_ehb":74.23076923076923,"Rift":58,"PvP Arena":0,"Tombs of Amascut":132,"Tombs of Amascut_ehb":37.714285714285715,"Tombs of Amascut Expert":300,"Tombs of Amascut Expert_ehb":100,"Ehb":817.9317,"Im_ehb":0}}'
 
 skills = ["Ranged","Magic","Hitpoints","Slayer","Defence","Attack","Strength","Construction","Prayer","Hunter","Firemaking","Herblore","Fletching","Cooking","Thieving","Smithing","Farming","Crafting","Fishing","Woodcutting","Agility","Mining","Runecraft"]
-bosses = ["Abyssal Sire","Alchemical Hydra","Barrows Chests","Bryophyta","Callisto","Cerberus","Chambers of Xeric","Chambers of Xeric Challenge Mode","Chaos Elemental","Chaos Fanatic","Commander Zilyana","Corporeal Beast","Crazy Archaeologist","Dagannoth Prime","Dagannoth Rex","Dagannoth Supreme","Deranged Archaeologist","General Graardor","Giant Mole","Grotesque Guardians","Hespori","Kalphite Queen","King Black Dragon","Kraken","KreeArra","Kril Tsutsaroth","Mimic", "Obor","Sarachnis","Scorpia","Skotizo","The Gauntlet","The Corrupted Gauntlet","Theatre of Blood","Thermonuclear Smoke Devil","TzKal-Zuk","TzTok-Jad","Venenatis","Vetion","Vorkath","Wintertodt","Zalcano","Zulrah","The Nightmare","Tempoross","Theatre of Blood Challenge Mode","Phosanis Nightmare","Nex","Rift","Tombs of Amascut","Tombs of Amascut Expert","Phantom Muspah"]
+bosses = ["Abyssal Sire","Alchemical Hydra","Barrows Chests","Bryophyta","Callisto","Cerberus","Chambers of Xeric","Chambers of Xeric Challenge Mode","Chaos Elemental","Chaos Fanatic","Commander Zilyana","Corporeal Beast","Crazy Archaeologist","Dagannoth Prime","Dagannoth Rex","Dagannoth Supreme","Deranged Archaeologist","General Graardor","Giant Mole","Grotesque Guardians","Hespori","Kalphite Queen","King Black Dragon","Kraken","KreeArra","Kril Tsutsaroth","Mimic", "Obor","Sarachnis","Scorpia","Skotizo","The Gauntlet","The Corrupted Gauntlet","Theatre of Blood","Thermonuclear Smoke Devil","TzKal-Zuk","TzTok-Jad","Venenatis","Vetion","Vorkath","Wintertodt","Zalcano","Zulrah","The Nightmare","Tempoross","Theatre of Blood Challenge Mode","Phosanis Nightmare","Nex","Rift","Tombs of Amascut","Tombs of Amascut Expert","Phantom Muspah", "Artio", "Calvarion", "Spindel", "Duke Sucellus", "The Whisperer", "Vardorvis", "The Leviathan"]
 
 class Achievement():
     def __init__(self, entry: dict):
@@ -48,7 +48,7 @@ class TempleOsrs():
         self.__last_current_achievements = []
         self.logger = logging.getLogger("TempleOsrs")
 
-    def get_cc_current_achievements(self, debug: bool=False) -> tuple:
+    async def get_cc_current_achievements(self, debug: bool=False) -> tuple:
         if not debug:
             resp = requests.get("https://templeosrs.com/api/group_achievements.php", params={'id':self.id})
             if resp.ok:
@@ -279,15 +279,19 @@ class TempleOsrs():
                 str_to_return +="```"
         return str_to_return
 
-    def cheat(self):
-        self.__write_time_file("2023-01-06 06:07:30", str(int(time.time())), "container/src/conf/time.output")
-        print(self.__read_time_file("container/src/conf/time.output"))
+    async def cheat(self):
+        t = time.time()
+        resp = await self.__call_api("https://templeosrs.com/api/player_stats.php", {'player':"iamxerxes", 'bosses':'1','date':t})
+        print(resp.text)
 
 
 if __name__ == "__main__":
-    print(int(time.time()))
-    print(str(int(time.time())))
+   #print(int(time.time()))
+    
+    #print(str(int(time.time())))
     TO = TempleOsrs()
     #TO.get_cc_monthly_achievements(debug=True)
-    TO.cheat()
+    asyncio.run(TO.cheat())
+    
+    
     
