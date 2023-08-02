@@ -8,10 +8,10 @@ import logging.handlers
 
 from temple_osrs import TempleOsrs
 
-version_num = 0.6
+version_num = 0.61
 version_date = "23/07/26"
 changelog="""```- Empyreal
-- Update for DT2, added new Async... hopefully it works```"""
+- new new async stuff, nothing else cool... but async is cool to me :(```"""
 
 def read_conf() -> dict:
     rtn_dict = {}
