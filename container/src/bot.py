@@ -8,10 +8,10 @@ import logging.handlers
 
 from temple_osrs import TempleOsrs
 
-version_num = 0.61
-version_date = "23/07/26"
+version_num = 0.62
+version_date = "23/08/04"
 changelog="""```- Empyreal
-- new new async stuff, nothing else cool... but async is cool to me :(```"""
+- new new async stuff, slightly improved error handling/logging```"""
 
 def read_conf() -> dict:
     rtn_dict = {}

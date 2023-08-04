@@ -5,6 +5,7 @@ import time
 import datetime
 import asyncio
 from functools import partial
+from requests.exceptions import HTTPError
 
 FILE_LOCATION = "src/conf/time.output"
 resp_test = b'{"data":[{"Username":"Saltysyra1","Date":"2022-12-16 09:29:13","Skill":"Smithing1","Type":"Skill","Xp":5000001},{"Username":"Ivan Btw","Date":"2023-04-12 04:49:31","Skill":"Alchemical Hydra","Milestone":"XP","Type":"Pvm","Xp":700},{"Username":"Cute Jesus","Date":"2023-04-12 00:28:00","Skill":"Prayer","Milestone":"Level","Type":"Skill","Xp":99},{"Username":"Cute Jesus","Date":"2023-04-12 00:28:00","Skill":"Magic","Milestone":"Level","Type":"Skill","Xp":99},{"Username":"Cute Jesus","Date":"2023-04-12 00:28:00","Skill":"Cooking","Milestone":"Level","Type":"Skill","Xp":99},{"Username":"Cute Jesus","Date":"2023-04-12 00:28:00","Skill":"Attack","Milestone":"Level","Type":"Skill","Xp":99},{"Username":"Cute Jesus","Date":"2023-04-12 00:28:00","Skill":"Fletching","Milestone":"Level","Type":"Skill","Xp":99},{"Username":"Cute Jesus","Date":"2023-04-12 00:28:00","Skill":"Defence","Milestone":"Level","Type":"Skill","Xp":99},{"Username":"Cute Jesus","Date":"2023-04-12 00:28:00","Skill":"Crafting","Milestone":"Level","Type":"Skill","Xp":99},{"Username":"Cute Jesus","Date":"2023-04-12 00:28:00","Skill":"Strength","Milestone":"Level","Type":"Skill","Xp":99},{"Username":"Cute Jesus","Date":"2023-04-12 00:28:00","Skill":"Herblore","Milestone":"Level","Type":"Skill","Xp":99},{"Username":"Cute Jesus","Date":"2023-04-12 00:28:00","Skill":"Hitpoints","Milestone":"Level","Type":"Skill","Xp":99},{"Username":"Cute Jesus","Date":"2023-04-12 00:28:00","Skill":"Slayer","Milestone":"Level","Type":"Skill","Xp":99},{"Username":"Cute Jesus","Date":"2023-04-12 00:28:00","Skill":"Ranged","Milestone":"Level","Type":"Skill","Xp":99},{"Username":"Cute Jesus","Date":"2023-04-12 00:28:00","Skill":"Farming","Milestone":"Level","Type":"Skill","Xp":99},{"Username":"Diablolatino","Date":"2023-04-12 00:17:30","Skill":"Nex","Milestone":"XP","Type":"Pvm","Xp":200},{"Username":"Kaanploxrun","Date":"2023-04-11 23:42:14","Skill":"Zulrah","Milestone":"XP","Type":"Pvm","Xp":400},{"Username":"Hitpointler","Date":"2023-04-11 21:54:02","Skill":"Cooking","Milestone":"Level","Type":"Skill","Xp":99},{"Username":"Hitpointler","Date":"2023-04-11 21:54:02","Skill":"Firemaking","Milestone":"Level","Type":"Skill","Xp":99},{"Username":"Hitpointler","Date":"2023-04-11 21:54:02","Skill":"Farming","Milestone":"Level","Type":"Skill","Xp":99},{"Username":"Hitpointler","Date":"2023-04-11 21:54:02","Skill":"Attack","Milestone":"Level","Type":"Skill","Xp":99},{"Username":"Hitpointler","Date":"2023-04-11 21:54:02","Skill":"Defence","Milestone":"Level","Type":"Skill","Xp":99},{"Username":"Hitpointler","Date":"2023-04-11 21:54:02","Skill":"Strength","Milestone":"Level","Type":"Skill","Xp":99},{"Username":"Hitpointler","Date":"2023-04-11 21:54:02","Skill":"Hitpoints","Milestone":"Level","Type":"Skill","Xp":99},{"Username":"Hitpointler","Date":"2023-04-11 21:54:02","Skill":"Ranged","Milestone":"Level","Type":"Skill","Xp":99}]}'
@@ -128,7 +129,10 @@ class TempleOsrs():
         future1 = loop.run_in_executor(None,  partial(requests.get, url, params=params))
         resp = await future1
         #resp = requests.get(url, params=params)
-        resp.raise_for_status()
+        try:
+            resp.raise_for_status()
+        except HTTPError as httpError:
+            self.logger.exception(f"Call API Method threw HTTP Error: {httpError}")
         # a short sleep to give a chance for the bot to call home (avoid weird random errors popping up >:/)
         await asyncio.sleep(0.5)
         return resp
