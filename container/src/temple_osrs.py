@@ -48,7 +48,7 @@ class Achievement():
 
 class TempleOsrs():
     
-    def __init__(self, id: str="2010"):
+    def __init__(self, id: str="2288"):
         self.id = id
         self.__last_current_achievements = []
         self.logger = logging.getLogger("TempleOsrs")
