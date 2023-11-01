@@ -8,10 +8,9 @@ import logging.handlers
 
 from temple_osrs import TempleOsrs
 
-version_num = 0.62
-version_date = "23/08/04"
-changelog="""```- Empyreal
-- new new async stuff, slightly improved error handling/logging```"""
+version_num = 0.7
+version_date = "23/11/01"
+changelog="""```- Elidinis```"""
 
 def read_conf() -> dict:
     rtn_dict = {}
