@@ -178,7 +178,7 @@ class TempleOsrs():
                             for i, metric_name in enumerate(metric):
                                 lists[i].append(self.__calc_player_difference(metric_name, old_player_resp_parsed, new_player_resp_parsed))
                 # sort all lists from high to low
-                lists = [sorted(li,key= lambda x: x[1], reverse=True) for li in lists]
+                lists = [sorted(li,key= lambda x: x[1], reverse=True) for li in lists if li is not None]
 
                 list_of_strings = [f"The top 5 players in the CC for the period: {datetime.datetime.fromtimestamp(int(unix_time_then)).strftime('%Y/%m/%d')} - {datetime.datetime.fromtimestamp(unix_time_now).strftime('%Y/%m/%d')}"]
                 
