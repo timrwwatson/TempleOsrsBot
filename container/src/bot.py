@@ -9,8 +9,8 @@ import logging.handlers
 from temple_osrs import TempleOsrs
 
 version_num = 0.7
-version_date = "23/11/01"
-changelog="""```- Elidinis```"""
+version_date = "24/03/30"
+changelog="""```- Elidinis - Updated for Valarmore and boss names```"""
 
 def read_conf() -> dict:
     rtn_dict = {}
