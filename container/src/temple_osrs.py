@@ -178,7 +178,7 @@ class TempleOsrs():
                             for i, metric_name in enumerate(metric):
                                 lists[i].append(self.__calc_player_difference(metric_name, old_player_resp_parsed, new_player_resp_parsed))
                 # sort all lists from high to low
-                lists = [sorted(li,key= lambda x: x[1], reverse=True) for li in lists if li is not None]
+                lists = [sorted(li,key= lambda x: x[1], reverse=True) for li in lists if li[1] is not None]
 
                 list_of_strings = [f"The top 5 players in the CC for the period: {datetime.datetime.fromtimestamp(int(unix_time_then)).strftime('%Y/%m/%d')} - {datetime.datetime.fromtimestamp(unix_time_now).strftime('%Y/%m/%d')}"]
                 
@@ -237,9 +237,9 @@ class TempleOsrs():
         try:
             if metric == "boss":
                 for boss in bosses:
-                    count += int(new_player["data"][boss]) - int(old_player["data"][boss])
+                    count += int(new_player["data"].get(boss, 0)) - int(old_player["data"].get(boss, 0))
             else:
-                count = new_player["data"][metric] - old_player["data"][metric]
+                count = new_player["data"].get(metric, 0) - old_player["data"].get(metric, 0)
             return (new_player["data"]["info"]["Username"], count)
         except KeyError as ke:
             self.logger.error(f"There was a key error while calculating player difference: {ke} the data was: {new_player} \n and: {old_player}")
