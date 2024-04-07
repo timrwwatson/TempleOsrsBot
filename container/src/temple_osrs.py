@@ -17,6 +17,8 @@ old_player_resp = b'\r\n{"data":{"info":{"Username":"Weapons","Country":"-","Gam
 skills = ["Ranged","Magic","Hitpoints","Slayer","Defence","Attack","Strength","Construction","Prayer","Hunter","Firemaking","Herblore","Fletching","Cooking","Thieving","Smithing","Farming","Crafting","Fishing","Woodcutting","Agility","Mining","Runecraft"]
 bosses = ["Abyssal Sire","Alchemical Hydra","Barrows Chests","Bryophyta","Callisto","Cerberus","Chambers of Xeric","Chambers of Xeric Challenge Mode","Chaos Elemental","Chaos Fanatic","Commander Zilyana","Corporeal Beast","Crazy Archaeologist","Dagannoth Prime","Dagannoth Rex","Dagannoth Supreme","Deranged Archaeologist","General Graardor","Giant Mole","Grotesque Guardians","Hespori","Kalphite Queen","King Black Dragon","Kraken","KreeArra","Kril Tsutsaroth","Mimic", "Obor","Sarachnis","Scorpia","Skotizo","The Gauntlet","The Corrupted Gauntlet","Theatre of Blood","Thermonuclear Smoke Devil","TzKal-Zuk","TzTok-Jad","Venenatis","Vetion","Vorkath","Wintertodt","Zalcano","Zulrah","The Nightmare","Tempoross","Theatre of Blood Challenge Mode","Phosanis Nightmare","Nex","Rift","Tombs of Amascut","Tombs of Amascut Expert","Phantom Muspah", "Artio", "Calvarion", "Spindel", "Duke Sucellus", "The Whisperer", "Vardorvis", "The Leviathan", "Scurrius", "Colosseum Glory", "Lunar Chests", "Sol Heredit"]
 
+PVM_SPECIAL_SKILL = ["Clue", "Ehb", "Colosseum Glory", "Barrows Chests", "Soul Wars Zeal", "LMS"]
+
 class Achievement():
     def __init__(self, entry: dict):
         self.username = entry["Username"]
@@ -30,7 +32,7 @@ class Achievement():
 
     def __repr__(self) -> str:
         rtn_str = f"{self.username}" 
-        if self.type == "Pvm" and not("Clue" in self.skill or "Ehb" in self.skill or "Colosseum Glory" in self.skill):
+        if self.type == "Pvm" and not any(substring in self.skill for substring in PVM_SPECIAL_SKILL):
             rtn_str += f" has reached {self.xp} in {self.skill} kills!" 
         elif self.type == "Pvm" and ("Clue" in self.skill):
             idx = self.skill.find("Clue_") + 5
@@ -296,11 +298,18 @@ class TempleOsrs():
 
 if __name__ == "__main__":
    #print(int(time.time()))
+
+    PVM_SPECIAL_SKILL = ["Clue", "Ehb", "Colosseum Glory", "Barrows Chests", "Soul Wars Zeal"]
+    a = "something Ehb sdasd;askd"
+
+    if not any(substring in a for substring in PVM_SPECIAL_SKILL):
+        print("HERE")
+   #  if self.type == "Pvm" and not("Clue" in self.skill or "Ehb" in self.skill or "Colosseum Glory" in self.skill):
     
     #print(str(int(time.time())))
-    TO = TempleOsrs()
+    #TO = TempleOsrs()
     #TO.get_cc_monthly_achievements(debug=True)
-    asyncio.run(TO.cheat())
+    #asyncio.run(TO.cheat())
     
     
     
