@@ -8,9 +8,9 @@ import logging.handlers
 
 from temple_osrs import TempleOsrs
 
-version_num = 0.71
+version_num = 0.72
 version_date = "24/04/07"
-changelog="""```- Elidinis - Updated so LMS, Soul wars and barrows chests don't have "Kills" appended to the bot message (makes more sense?)```"""
+changelog="""```- Elidinis - Made it so chests is more generic - re Lunar Chests...```"""
 
 def read_conf() -> dict:
     rtn_dict = {}

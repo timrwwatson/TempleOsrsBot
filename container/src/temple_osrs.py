@@ -17,7 +17,7 @@ old_player_resp = b'\r\n{"data":{"info":{"Username":"Weapons","Country":"-","Gam
 skills = ["Ranged","Magic","Hitpoints","Slayer","Defence","Attack","Strength","Construction","Prayer","Hunter","Firemaking","Herblore","Fletching","Cooking","Thieving","Smithing","Farming","Crafting","Fishing","Woodcutting","Agility","Mining","Runecraft"]
 bosses = ["Abyssal Sire","Alchemical Hydra","Barrows Chests","Bryophyta","Callisto","Cerberus","Chambers of Xeric","Chambers of Xeric Challenge Mode","Chaos Elemental","Chaos Fanatic","Commander Zilyana","Corporeal Beast","Crazy Archaeologist","Dagannoth Prime","Dagannoth Rex","Dagannoth Supreme","Deranged Archaeologist","General Graardor","Giant Mole","Grotesque Guardians","Hespori","Kalphite Queen","King Black Dragon","Kraken","KreeArra","Kril Tsutsaroth","Mimic", "Obor","Sarachnis","Scorpia","Skotizo","The Gauntlet","The Corrupted Gauntlet","Theatre of Blood","Thermonuclear Smoke Devil","TzKal-Zuk","TzTok-Jad","Venenatis","Vetion","Vorkath","Wintertodt","Zalcano","Zulrah","The Nightmare","Tempoross","Theatre of Blood Challenge Mode","Phosanis Nightmare","Nex","Rift","Tombs of Amascut","Tombs of Amascut Expert","Phantom Muspah", "Artio", "Calvarion", "Spindel", "Duke Sucellus", "The Whisperer", "Vardorvis", "The Leviathan", "Scurrius", "Colosseum Glory", "Lunar Chests", "Sol Heredit"]
 
-PVM_SPECIAL_SKILL = ["Clue", "Ehb", "Colosseum Glory", "Barrows Chests", "Soul Wars Zeal", "LMS"]
+PVM_SPECIAL_SKILL = ["Clue", "Ehb", "Colosseum Glory", "Chests", "Soul Wars Zeal", "LMS"]
 
 class Achievement():
     def __init__(self, entry: dict):
