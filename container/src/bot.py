@@ -8,9 +8,9 @@ import logging.handlers
 
 from temple_osrs import TempleOsrs
 
-version_num = 0.72
-version_date = "24/04/07"
-changelog="""```- Elidinis - Made it so chests is more generic - re Lunar Chests...```"""
+version_num = 0.73
+version_date = "24/07/02"
+changelog="""```- Elidinis - Remove glory from monthly count```"""
 
 def read_conf() -> dict:
     rtn_dict = {}
