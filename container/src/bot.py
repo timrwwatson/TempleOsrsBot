@@ -5,12 +5,13 @@ import asyncio
 from datetime import datetime
 import logging
 import logging.handlers
+import random
 
 from temple_osrs import TempleOsrs
 
-version_num = 0.73
-version_date = "24/07/02"
-changelog="""```- Elidinis - Remove glory from monthly count```"""
+version_num = 0.74
+version_date = "24/07/06"
+changelog="""```- Elidinis - roll dice command```"""
 
 def read_conf() -> dict:
     rtn_dict = {}
@@ -86,6 +87,11 @@ async def monthly(ctx):
     else:
         for msg in monthly_list_to_send:
             await ctx.message.author.send(msg)
+
+@bot.command(help="Bot rolls a dice between 1-6 (inclusive)")
+async def roll(ctx):
+    random_number = random.randint(1,6)
+    await ctx.send(f"The bot rolled a {random_number}!")
 
 @bot.event
 async def setup_hook() -> None:
