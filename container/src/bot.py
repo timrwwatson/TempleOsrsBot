@@ -7,11 +7,13 @@ import logging
 import logging.handlers
 import random
 
+from time_query import get_time
+
 from temple_osrs import TempleOsrs
 
-version_num = 0.74
-version_date = "24/07/06"
-changelog="""```- Elidinis - roll dice command```"""
+version_num = 0.8
+version_date = "24/07/07"
+changelog="""```- Elidinis - Date Conversion```"""
 
 def read_conf() -> dict:
     rtn_dict = {}
@@ -92,6 +94,11 @@ async def monthly(ctx):
 async def roll(ctx):
     random_number = random.randint(1,6)
     await ctx.send(f"The bot rolled a {random_number}!")
+
+@bot.command(help="Bot converts a time to a few different timezones")
+async def time(ctx, time, zone="Europe/London"):
+    printStr = await get_time(time=time, zone=zone)
+    await ctx.send(printStr)
 
 @bot.event
 async def setup_hook() -> None:
