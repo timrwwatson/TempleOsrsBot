@@ -4,6 +4,8 @@ import requests
 import regex as re
 from functools import partial
 from requests.exceptions import HTTPError
+import datetime
+from zoneinfo import ZoneInfo
 
 time_url = "https://www.timeapi.io/api/Conversion/ConvertTimeZone"
 
@@ -617,30 +619,36 @@ def validate_date(date_string):
 async def get_time(time=str, zone=str) -> str:
     logger = logging.getLogger("TempleOsrs")
 
-    return_str = f"The converted time for '{time}' '{zone}' is: \n"
+    #return_str = f"The converted time for '{time}' '{zone}' is: \n"
+    return_str = ""
 
     if zone not in TIMEZONES or not validate_date(time):
         return_str = "Given time and zone are not in the correct format. YYYY-MM-DD HH-MM-SS and US/Eastern"
     else:
-        convertList = ["US/Pacific","US/Central", "US/Eastern", "Europe/London", "Europe/Amsterdam", "Pacific/Auckland"]
-        for code in convertList:
+        # convertList = ["US/Pacific","US/Central", "from dateutil import tz ", "Europe/London", "Europe/Amsterdam", "Pacific/Auckland"]
+        # for code in convertList:
 
-            loop = asyncio.get_event_loop()
-            json_data = {'Content-Type': 'text/json','accept': 'application/json' ,"fromTimeZone": zone, "dateTime": time, "toTimeZone": code, "dstAmbiguity":""}
-            future1 = loop.run_in_executor(None,  partial(requests.post, time_url, json=json_data))
-            resp = await future1
-            #resp = requests.get(url, params=params)
-            try:
-                resp.raise_for_status()
-            except HTTPError as httpError:
-                logger.exception(f"Call API Method threw HTTP Error: {httpError}")
+        #     loop = asyncio.get_event_loop()
+        #     json_data = {'Content-Type': 'text/json','accept': 'application/json' ,"fromTimeZone": zone, "dateTime": time, "toTimeZone": code, "dstAmbiguity":""}
+        #     future1 = loop.run_in_executor(None,  partial(requests.post, time_url, json=json_data))
+        #     resp = await future1
+        #     #resp = requests.get(url, params=params)
+        #     try:
+        #         resp.raise_for_status()
+        #     except HTTPError as httpError:
+        #         logger.exception(f"Call API Method threw HTTP Error: {httpError}")
 
-            json_obv = resp.json()
-            dateTime = json_obv["conversionResult"]["dateTime"]
-            dateTime = dateTime.replace('T', " ")
-            str_to_add = f"Timezone: {code} the converted time is: {dateTime} \n"
-            return_str += str_to_add
-        return_str +="*reminder format is YYYY-MM-DD HH-MM-SS \n"
+        #     json_obv = resp.json()
+        #     dateTime = json_obv["conversionResult"]["dateTime"]
+        #     dateTime = dateTime.replace('T', " ")
+        #     str_to_add = f"Timezone: {code} the converted time is: {dateTime} \n"
+        #     return_str += str_to_add
+        # return_str +="*reminder format is YYYY-MM-DD HH-MM-SS \n"
+
+        d = datetime.datetime.fromisoformat(time)
+        d = d.replace(tzinfo=ZoneInfo(zone))
+        str_to_add = f"The converted time is <t:{int(d.timestamp())}:F>"
+        return_str += str_to_add
         logging.info(f"Converted time for {time} and zone: {zone}")
     return return_str
 
@@ -648,4 +656,9 @@ async def get_time(time=str, zone=str) -> str:
 
 
 if __name__ == "__main__":
-    print(validate_date("2024-07-07 13:00:00"))
+    # print(validate_date("2024-07-07 13:00:00"))
+    d = datetime.datetime.fromisoformat("2024-07-07 13:00:00")
+    d= d.replace(tzinfo=ZoneInfo("US/Eastern"))
+    #
+    print(d.timestamp())
+    

@@ -11,9 +11,9 @@ from time_query import get_time
 
 from temple_osrs import TempleOsrs
 
-version_num = 0.81
+version_num = 0.82
 version_date = "24/07/07"
-changelog="""```- Elidinis - Date Conversion```"""
+changelog="""```- Elidinis - Date Conversion, made simpler, it uses discord built in conversion from epoch time```"""
 
 def read_conf() -> dict:
     rtn_dict = {}
