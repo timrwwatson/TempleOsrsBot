@@ -641,6 +641,7 @@ async def get_time(time=str, zone=str) -> str:
             str_to_add = f"Timezone: {code} the converted time is: {dateTime} \n"
             return_str += str_to_add
         return_str +="*reminder format is YYYY-MM-DD HH-MM-SS \n"
+        logging.info(f"Converted time for {time} and zone: {zone}")
     return return_str
 
 
